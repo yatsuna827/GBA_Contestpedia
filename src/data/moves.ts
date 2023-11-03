@@ -1,4 +1,7 @@
-export default [
+import type { AppealType } from "./appealType"
+import type { EffectId } from "./effects"
+
+export const moves = [
   { id: 1, name: "はたく", type: "たくましさ", effectId: "A00" },
   { id: 2, name: "からてチョップ", type: "たくましさ", effectId: "B04" },
   { id: 3, name: "おうふくビンタ", type: "たくましさ", effectId: "D06" },
@@ -353,4 +356,16 @@ export default [
   { id: 352, name: "みずのはどう", type: "うつくしさ", effectId: "E02" },
   { id: 353, name: "はめつのねがい", type: "かっこよさ", effectId: "G00" },
   { id: 354, name: "サイコブースト", type: "かしこさ", effectId: "F00" }
-]
+] satisfies (Move | Struggle)[]
+
+export type Move = {
+  id: number
+  name: string
+  type: AppealType
+  effectId: EffectId
+} 
+
+type Struggle = {
+  id: 165
+  name: string
+}

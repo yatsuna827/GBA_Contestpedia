@@ -1,9 +1,9 @@
-import effects from '../data/effects.mjs'
+import {EffectId, MoveEffect, effects, getMoves} from '../data/effects.js'
 
-import { Appeal, Jamming } from '../templates/points.mjs'
-import { Type } from '../templates/type.mjs'
+import { Appeal, Jamming } from '../templates/points.js'
+import { Type } from '../templates/type.js'
 
-export const buildEffectPage = (id, e) => `
+export const buildEffectPage = ({id, appeal, jamming, description, inGameDescription}: MoveEffect) => `
 <html>
 
 <head>
@@ -23,16 +23,16 @@ export const buildEffectPage = (id, e) => `
     <a href="#in-game">ゲーム内での表記</a>
   </h3>
   <table>
-    <tr><th>アピール</th><td>${Appeal(e.appeal)}</span></td></tr>
-    <tr><th>ぼうがい</th><td>${Jamming(e.jamming)}</span></td></tr>
-    <tr><th>せつめい</th><td>${e.inGameDescription}</td></tr>
+    <tr><th>アピール</th><td>${Appeal(appeal)}</span></td></tr>
+    <tr><th>ぼうがい</th><td>${Jamming(jamming)}</span></td></tr>
+    <tr><th>せつめい</th><td>${inGameDescription}</td></tr>
   </table>
 
   <h3>
     <span id="effect"></span>
     <a href="#effect">効果</a>
   </h3>
-  <p>${e.description}</p>
+  <p>${description}</p>
 
   <h2>
     <span id="related-data"></span>
@@ -49,7 +49,7 @@ export const buildEffectPage = (id, e) => `
         <th>タイプ</th>
       </tr>
     </thead>
-    <tbody>${e.moves.map(({id, name, type}) => `
+    <tbody>${getMoves(id).map(({id, name, type}) => `
       <tr>
         <td><a href='../moves/${id.toString().padStart(3, '0')}.html'>${name}</a></td>
         <td>${Type(type)}</td>
@@ -78,7 +78,7 @@ export const buildEffectsIndexPage = () => `
         <th>効果</th>
       </tr>
     </thead>
-    <tbody>${Object.entries(effects).map(([id, {description}]) => `
+    <tbody>${effects.map(({id, description}) => `
       <tr>
         <td><a href='./effects/${id}.html'>${id}</a></td>
         <td>${description}</td>

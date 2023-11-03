@@ -1,14 +1,14 @@
-import moves from '../data/moves.mjs'
-import combos from '../data/combo.mjs'
-import effects from '../data/effects.mjs'
+import { Move, moves } from '../data/moves.js'
+import combos from '../data/combo.js'
+import { effects, getEffect, getMoves } from '../data/effects.js'
 
-import { Appeal, Jamming } from '../templates/points.mjs'
-import { Type } from '../templates/type.mjs'
+import { Appeal, Jamming } from '../templates/points.js'
+import { Type } from '../templates/type.js'
 
-export const buildMovePage = ({id, name, type, effectId}) => {
-  const ef = effects[effectId]
-  const comboTo = combos.filter(({from}) => from === id).map(({to}) => moves[to-1])
-  const comboFrom = combos.filter(({to}) => to === id).map(({from}) => moves[from-1])
+export const buildMovePage = ({id, name, type, effectId}: Move) => {
+  const ef = getEffect(effectId)
+  const comboTo = combos.filter(({from}) => from === id).map(({to}) => moves[to-1] as Move)
+  const comboFrom = combos.filter(({to}) => to === id).map(({from}) => moves[from-1] as Move)
 
   return `
 <html>
@@ -93,7 +93,7 @@ export const buildMovePage = ({id, name, type, effectId}) => {
         <th>タイプ</th>
       </tr>
     </thead>
-    <tbody>${ef.moves.filter((other) => other.id !== id).map(({id, name, type}) => `
+    <tbody>${getMoves(ef.id).filter((other) => other.id !== id).map(({id, name, type}) => `
       <tr>
         <td><a href='./${id.toString().padStart(3, '0')}.html'>${name}</a></td>
         <td>${Type(type)}</td>
@@ -105,7 +105,7 @@ export const buildMovePage = ({id, name, type, effectId}) => {
 `
 }
 
-const TypeSection = (typeEn, typeJp) => {
+const TypeSection = (typeEn: string, typeJp: string) => {
   return `
   <h2>
     <span id="${typeEn}"></span>
