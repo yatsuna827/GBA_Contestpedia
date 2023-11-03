@@ -3,12 +3,20 @@
   "module": "index.ts",
   "type": "module",
   "scripts": {
-    "build": "bun run ./src/build.ts"
+    "build": "bun run ./src/build.ts",
+    "format": "bun x prettier ./docs/ --write"
   },
   "devDependencies": {
-    "bun-types": "^1.0.7"
+    "@types/react": "^18.2.34",
+    "@types/react-dom": "^18.2.14",
+    "bun-types": "^1.0.7",
+    "prettier": "^3.0.3"
   },
   "peerDependencies": {
     "typescript": "^5.0.0"
+  },
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
   }
 }

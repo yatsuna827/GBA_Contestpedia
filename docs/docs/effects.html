@@ -1,155 +1,169 @@
-
 <html>
+  <head>
+    <title>GBAコンテスト辞典|わざ効果データ</title>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
 
-<head>
-  <title>GBAコンテスト辞典|わざ効果データ</title>
-  <link rel="stylesheet" href="./style.css">
-</head>
+  <body>
+    <h1>わざ効果データ</h1>
 
-<body>
-  <h1>わざ効果データ</h1>
-
-  <table>
-    <thead>
-      <tr>
-        <th>ID</th>
-        <th>効果</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a href='./effects/A00.html'>A00</a></td>
-        <td>（追加効果なし）</td>
-      </tr>
-      <tr>
-        <td><a href='./effects/B00.html'>B00</a></td>
-        <td>順番が1匹目なら6点、それ以外なら2点。</td>
-      </tr>
-      <tr>
-        <td><a href='./effects/B01.html'>B01</a></td>
-        <td>順番が4匹目なら6点、それ以外なら2点。</td>
-      </tr>
-      <tr>
-        <td><a href='./effects/B02.html'>B02</a></td>
-        <td>行動順に応じて得点が変動。（早いほうから順に1点、2点、4点、6点）</td>
-      </tr>
-      <tr>
-        <td><a href='./effects/B03.html'>B03</a></td>
-        <td>直前のポケモンのアピールと同じタイプなら6点。</td>
-      </tr>
-      <tr>
-        <td><a href='./effects/B04.html'>B04</a></td>
-        <td>直前のポケモンのアピールの得点が2以下なら6点、3点なら3点、4以上なら0点。</td>
-      </tr>
-      <tr>
-        <td><a href='./effects/B05.html'>B05</a></td>
-        <td>エキサイトに応じて得点が変動。（エキサイト0から順に1点、2点、3点、5点、6点）</td>
-      </tr>
-      <tr>
-        <td><a href='./effects/B06.html'>B06</a></td>
-        <td>ランダムで得点が変動（30%で1点、30%で2点、20%で4点、10%で6点、10%で8点）</td>
-      </tr>
-      <tr>
-        <td><a href='./effects/B07.html'>B07</a></td>
-        <td>直前のポケモンの得点+1点の得点。</td>
-      </tr>
-      <tr>
-        <td><a href='./effects/B08.html'>B08</a></td>
-        <td>自分より前のポケモンたちの得点合計の半分（切り捨て）+1点の得点。ただしマイナスの得点は無視する。</td>
-      </tr>
-      <tr>
-        <td><a href='./effects/B09.html'>B09</a></td>
-        <td>調子ボーナスを3倍で計算する。</td>
-      </tr>
-      <tr>
-        <td><a href='./effects/C00.html'>C00</a></td>
-        <td>そのターン中、1回だけ妨害を受けない。</td>
-      </tr>
-      <tr>
-        <td><a href='./effects/C01.html'>C01</a></td>
-        <td>そのターン中、妨害を受けない。</td>
-      </tr>
-      <tr>
-        <td><a href='./effects/C02.html'>C02</a></td>
-        <td>調子が上がる。</td>
-      </tr>
-      <tr>
-        <td><a href='./effects/D00.html'>D00</a></td>
-        <td>直前のポケモンに4点の減点。</td>
-      </tr>
-      <tr>
-        <td><a href='./effects/D01.html'>D01</a></td>
-        <td>直前のポケモンに3点の減点。</td>
-      </tr>
-      <tr>
-        <td><a href='./effects/D02.html'>D02</a></td>
-        <td>自分より前のポケモンたちに3点の減点。</td>
-      </tr>
-      <tr>
-        <td><a href='./effects/D03.html'>D03</a></td>
-        <td>自分より前のポケモンたちに2点の減点。</td>
-      </tr>
-      <tr>
-        <td><a href='./effects/D04.html'>D04</a></td>
-        <td>得点が1点以上あれば得点の半分（切り上げ）の減点、0以下の場合は1点の減点。</td>
-      </tr>
-      <tr>
-        <td><a href='./effects/D05.html'>D05</a></td>
-        <td>同じタイプのアピールをしていたら4点、そうでないなら1点の減点。</td>
-      </tr>
-      <tr>
-        <td><a href='./effects/D06.html'>D06</a></td>
-        <td>コンボ待機状態なら5点、そうでないなら1点減点。</td>
-      </tr>
-      <tr>
-        <td><a href='./effects/D07.html'>D07</a></td>
-        <td>自分より前のポケモンたちのコンボ待機状態を解除する。</td>
-      </tr>
-      <tr>
-        <td><a href='./effects/D08.html'>D08</a></td>
-        <td>自分より前のポケモンたちの調子を0に戻す。</td>
-      </tr>
-      <tr>
-        <td><a href='./effects/D09.html'>D09</a></td>
-        <td>自分より後のポケモンたちを緊張させる。</td>
-      </tr>
-      <tr>
-        <td><a href='./effects/E00.html'>E00</a></td>
-        <td>自分の次のターンの行動順を1番目に予約する。</td>
-      </tr>
-      <tr>
-        <td><a href='./effects/E01.html'>E01</a></td>
-        <td>自分の次のターンの行動順を4番目に予約する。</td>
-      </tr>
-      <tr>
-        <td><a href='./effects/E02.html'>E02</a></td>
-        <td>全員の次のターンの行動順がランダムに予約される。</td>
-      </tr>
-      <tr>
-        <td><a href='./effects/F00.html'>F00</a></td>
-        <td>そのターン中、 妨害による減点が2倍になる。</td>
-      </tr>
-      <tr>
-        <td><a href='./effects/F01.html'>F01</a></td>
-        <td>自分より前のポケモンたちに4点の減点。自分は次のターン、行動不能状態になる。</td>
-      </tr>
-      <tr>
-        <td><a href='./effects/F02.html'>F02</a></td>
-        <td>自分は次ターン以降、 行動不能状態になる。</td>
-      </tr>
-      <tr>
-        <td><a href='./effects/G00.html'>G00</a></td>
-        <td>そのターン中、エキサイトが変動しなくなる。</td>
-      </tr>
-      <tr>
-        <td><a href='./effects/H00.html'>H00</a></td>
-        <td>部門によらずエキサイトが上昇する。</td>
-      </tr>
-      <tr>
-        <td><a href='./effects/I00.html'>I00</a></td>
-        <td>連続で使ってもペナルティがつかない。</td>
-      </tr>
-    </tbody>
-  </table>
-</body>
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>効果</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><a href="./effects/A00.html">A00</a></td>
+          <td>（追加効果なし）</td>
+        </tr>
+        <tr>
+          <td><a href="./effects/B00.html">B00</a></td>
+          <td>順番が1匹目なら6点、それ以外なら2点。</td>
+        </tr>
+        <tr>
+          <td><a href="./effects/B01.html">B01</a></td>
+          <td>順番が4匹目なら6点、それ以外なら2点。</td>
+        </tr>
+        <tr>
+          <td><a href="./effects/B02.html">B02</a></td>
+          <td>
+            行動順に応じて得点が変動。（早いほうから順に1点、2点、4点、6点）
+          </td>
+        </tr>
+        <tr>
+          <td><a href="./effects/B03.html">B03</a></td>
+          <td>直前のポケモンのアピールと同じタイプなら6点。</td>
+        </tr>
+        <tr>
+          <td><a href="./effects/B04.html">B04</a></td>
+          <td>
+            直前のポケモンのアピールの得点が2以下なら6点、3点なら3点、4以上なら0点。
+          </td>
+        </tr>
+        <tr>
+          <td><a href="./effects/B05.html">B05</a></td>
+          <td>
+            エキサイトに応じて得点が変動。（エキサイト0から順に1点、2点、3点、5点、6点）
+          </td>
+        </tr>
+        <tr>
+          <td><a href="./effects/B06.html">B06</a></td>
+          <td>
+            ランダムで得点が変動（30%で1点、30%で2点、20%で4点、10%で6点、10%で8点）
+          </td>
+        </tr>
+        <tr>
+          <td><a href="./effects/B07.html">B07</a></td>
+          <td>直前のポケモンの得点+1点の得点。</td>
+        </tr>
+        <tr>
+          <td><a href="./effects/B08.html">B08</a></td>
+          <td>
+            自分より前のポケモンたちの得点合計の半分（切り捨て）+1点の得点。ただしマイナスの得点は無視する。
+          </td>
+        </tr>
+        <tr>
+          <td><a href="./effects/B09.html">B09</a></td>
+          <td>調子ボーナスを3倍で計算する。</td>
+        </tr>
+        <tr>
+          <td><a href="./effects/C00.html">C00</a></td>
+          <td>そのターン中、1回だけ妨害を受けない。</td>
+        </tr>
+        <tr>
+          <td><a href="./effects/C01.html">C01</a></td>
+          <td>そのターン中、妨害を受けない。</td>
+        </tr>
+        <tr>
+          <td><a href="./effects/C02.html">C02</a></td>
+          <td>調子が上がる。</td>
+        </tr>
+        <tr>
+          <td><a href="./effects/D00.html">D00</a></td>
+          <td>直前のポケモンに4点の減点。</td>
+        </tr>
+        <tr>
+          <td><a href="./effects/D01.html">D01</a></td>
+          <td>直前のポケモンに3点の減点。</td>
+        </tr>
+        <tr>
+          <td><a href="./effects/D02.html">D02</a></td>
+          <td>自分より前のポケモンたちに3点の減点。</td>
+        </tr>
+        <tr>
+          <td><a href="./effects/D03.html">D03</a></td>
+          <td>自分より前のポケモンたちに2点の減点。</td>
+        </tr>
+        <tr>
+          <td><a href="./effects/D04.html">D04</a></td>
+          <td>
+            得点が1点以上あれば得点の半分（切り上げ）の減点、0以下の場合は1点の減点。
+          </td>
+        </tr>
+        <tr>
+          <td><a href="./effects/D05.html">D05</a></td>
+          <td>
+            同じタイプのアピールをしていたら4点、そうでないなら1点の減点。
+          </td>
+        </tr>
+        <tr>
+          <td><a href="./effects/D06.html">D06</a></td>
+          <td>コンボ待機状態なら5点、そうでないなら1点減点。</td>
+        </tr>
+        <tr>
+          <td><a href="./effects/D07.html">D07</a></td>
+          <td>自分より前のポケモンたちのコンボ待機状態を解除する。</td>
+        </tr>
+        <tr>
+          <td><a href="./effects/D08.html">D08</a></td>
+          <td>自分より前のポケモンたちの調子を0に戻す。</td>
+        </tr>
+        <tr>
+          <td><a href="./effects/D09.html">D09</a></td>
+          <td>自分より後のポケモンたちを緊張させる。</td>
+        </tr>
+        <tr>
+          <td><a href="./effects/E00.html">E00</a></td>
+          <td>自分の次のターンの行動順を1番目に予約する。</td>
+        </tr>
+        <tr>
+          <td><a href="./effects/E01.html">E01</a></td>
+          <td>自分の次のターンの行動順を4番目に予約する。</td>
+        </tr>
+        <tr>
+          <td><a href="./effects/E02.html">E02</a></td>
+          <td>全員の次のターンの行動順がランダムに予約される。</td>
+        </tr>
+        <tr>
+          <td><a href="./effects/F00.html">F00</a></td>
+          <td>そのターン中、 妨害による減点が2倍になる。</td>
+        </tr>
+        <tr>
+          <td><a href="./effects/F01.html">F01</a></td>
+          <td>
+            自分より前のポケモンたちに4点の減点。自分は次のターン、行動不能状態になる。
+          </td>
+        </tr>
+        <tr>
+          <td><a href="./effects/F02.html">F02</a></td>
+          <td>自分は次ターン以降、 行動不能状態になる。</td>
+        </tr>
+        <tr>
+          <td><a href="./effects/G00.html">G00</a></td>
+          <td>そのターン中、エキサイトが変動しなくなる。</td>
+        </tr>
+        <tr>
+          <td><a href="./effects/H00.html">H00</a></td>
+          <td>部門によらずエキサイトが上昇する。</td>
+        </tr>
+        <tr>
+          <td><a href="./effects/I00.html">I00</a></td>
+          <td>連続で使ってもペナルティがつかない。</td>
+        </tr>
+      </tbody>
+    </table>
+  </body>
 </html>
