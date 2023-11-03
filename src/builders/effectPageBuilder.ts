@@ -23,8 +23,8 @@ export const buildEffectPage = ({id, appeal, jamming, description, inGameDescrip
     <a href="#in-game">ゲーム内での表記</a>
   </h3>
   <table>
-    <tr><th>アピール</th><td>${Appeal(appeal)}</span></td></tr>
-    <tr><th>ぼうがい</th><td>${Jamming(jamming)}</span></td></tr>
+    <tr><th>アピール</th><td>${Appeal(appeal)}</td></tr>
+    <tr><th>ぼうがい</th><td>${Jamming(jamming)}</td></tr>
     <tr><th>せつめい</th><td>${inGameDescription}</td></tr>
   </table>
 
