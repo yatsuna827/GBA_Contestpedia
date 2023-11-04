@@ -1,4 +1,8 @@
-export const styleSheet = `
+
+body {
+  padding: 16px;
+}
+
 .points > .appeal {
   color: red;
 }
@@ -79,5 +83,3 @@ nav {
   font-weight: bold;
   padding: 0 3px;
 }
-
-`

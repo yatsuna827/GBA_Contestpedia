@@ -3,7 +3,7 @@
   "module": "./src/build.tsx",
   "type": "module",
   "scripts": {
-    "build": "bun run ./src/build.ts",
+    "build": "bun run ./src/build.tsx",
     "check": "bun x tsc",
     "format": "bun x prettier ./docs/ --write --log-level=warn"
   },
