@@ -55,7 +55,10 @@ const MovePage = ({ id, name, type, effectId }: Move) => {
           <span id="effect"></span>
           <a href="#effect">効果</a>
         </h3>
-        <p>{ef.description}</p>
+        <table>
+          <tr><th>効果ID</th><td>${effectId}</td></tr>
+          <tr><th>説明</th><td>${ef.description}</td></tr>
+        </table>
 
         <h2>
           <span id="related-data"></span>
