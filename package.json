@@ -1,9 +1,10 @@
 {
   "name": "gba_contestpedia",
-  "module": "index.ts",
+  "module": "./src/build.tsx",
   "type": "module",
   "scripts": {
     "build": "bun run ./src/build.ts",
+    "check": "bun x tsc",
     "format": "bun x prettier ./docs/ --write --log-level=warn"
   },
   "devDependencies": {

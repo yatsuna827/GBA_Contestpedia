@@ -1,6 +1,7 @@
 import fs from 'fs'
-import {Move, moves} from './data/moves.js'
-import {effects} from './data/effects.js'
+import { Move, moves } from './data/moves.js'
+
+import { effects } from './data/effects.js'
 
 import { buildIndexPage } from './builders/indexBuilder.js'
 import { styleSheet } from './builders/style.js'
@@ -10,11 +11,10 @@ import { buildSpecPage } from './builders/specPageBuilder.js'
 
 // --------
 
-const __rootDir = `${process.cwd()}`;
+const __rootDir = `${process.cwd()}`
 const __docDir = `${__rootDir}/docs`
 
-if (fs.existsSync(__docDir))
-  fs.rmdirSync(__docDir, { recursive: true })
+if (fs.existsSync(__docDir)) fs.rmdirSync(__docDir, { recursive: true })
 
 fs.mkdirSync(`${__docDir}/docs/effects`, { recursive: true })
 fs.mkdirSync(`${__docDir}/docs/moves`, { recursive: true })

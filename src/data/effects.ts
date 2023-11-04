@@ -1,5 +1,6 @@
-import {type Move, moves} from "./moves.js"
+import { type Move, moves } from './moves.js'
 
+// prettier-ignore
 export const effects = [
   { id: "A00", appeal: 4, jamming: 0, isJamming: false, inGameDescription: "たくさん アピール できる", description: "（追加効果なし）" },
   { id: "B00", appeal: 2, jamming: 0, isJamming: false, inGameDescription: "1ばん はじめに アピールすると アピールが すごく うまくいく", description: "順番が1匹目なら6点、それ以外なら2点。" },
@@ -49,4 +50,4 @@ export type MoveEffect = {
 const _effectsMap = new Map<EffectId, MoveEffect>(effects.map((e) => [e.id, e]))
 
 export const getEffect = (id: EffectId): MoveEffect => _effectsMap.get(id)!
-export const getMoves = (effectId: EffectId): Move[] => moves.filter((m) => m.effectId === effectId)
+export const getMoves = (effectId: EffectId): Move[] => moves.filter((m): m is Move => m.effectId === effectId)
