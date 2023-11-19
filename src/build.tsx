@@ -29,7 +29,7 @@ for (const m of moves) {
 
   fs.writeFileSync(
     `${__docDir}/docs/moves/${m.id.toString().padStart(3, '0')}.html`,
-    renderToStaticMarkup(<MovePage {...(m as Move)} />),
+    renderToStaticMarkup(<MovePage {...(m as Move)} />)
   )
 }
 fs.writeFileSync(`${__docDir}/docs/moves.html`, renderToStaticMarkup(<MovesIndexPage />))

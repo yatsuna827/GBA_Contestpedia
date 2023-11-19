@@ -5,7 +5,8 @@
   "scripts": {
     "build": "bun run ./src/build.tsx",
     "check": "bun x tsc",
-    "format": "bun x prettier ./docs/ --write --log-level=warn"
+    "format:docs": "bun x prettier ./docs/ --write --log-level=warn",
+    "format:src": "bun x prettier ./src/ --write --log-level=warn"
   },
   "devDependencies": {
     "@types/react": "^18.2.34",
@@ -23,6 +24,7 @@
   "prettier": {
     "semi": false,
     "singleQuote": true,
-    "printWidth": 120
+    "printWidth": 120,
+    "trailingComma": "es5"
   }
 }
