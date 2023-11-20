@@ -66,29 +66,37 @@ type FileRoute<T extends string = string> = {
 }
 type RouteKey = symbol & { readonly __RouteKey: unique symbol }
 type DirRoute = {
-  key: RouteKey,
-  name: string,
-  index: JSX.Element | null,
+  key: RouteKey
+  name: string
+  index: JSX.Element | null
   children: (FileRoute<string> | DirRoute)[]
 }
 
-const htmlRoute = <T extends string,>({name, element}: {name: T, element: JSX.Element}): FileRoute<`${T}.html`> => {
-  return { 
-    element, 
-    name: `${name}.html` 
+const htmlRoute = <T extends string>({ name, element }: { name: T; element: JSX.Element }): FileRoute<`${T}.html`> => {
+  return {
+    element,
+    name: `${name}.html`,
   }
 }
 
-const createRoute = ({index, children, subRoutes}: {index?: JSX.Element, children?: FileRoute[], subRoutes?: Record<string, Omit<DirRoute, 'name'>>}): Omit<DirRoute, 'name'> => {
+const createRoute = ({
+  index,
+  children,
+  subRoutes,
+}: {
+  index?: JSX.Element
+  children?: FileRoute[]
+  subRoutes?: Record<string, Omit<DirRoute, 'name'>>
+}): Omit<DirRoute, 'name'> => {
   const key = Symbol('RouteKey') as RouteKey
 
   return {
     key,
     index: index ?? null,
     children: [
-      ...(subRoutes ? Object.entries(subRoutes).map(([name, dir]) => ({...dir, name})) : []),
+      ...(subRoutes ? Object.entries(subRoutes).map(([name, dir]) => ({ ...dir, name })) : []),
       ...(children ?? []),
-    ]
+    ],
   }
 }
 
@@ -99,49 +107,62 @@ const _moves = createRoute({
     .map((m) => htmlRoute({ name: m.id.toString().padStart(3, '0'), element: <MovePage {...m} /> })),
 })
 const _effects = createRoute({
-  index: <EffectsIndexPage/>,
-  children: effects.map((e) => htmlRoute({name: e.id, element: <EffectPage {...e} />}))
+  index: <EffectsIndexPage />,
+  children: effects.map((e) => htmlRoute({ name: e.id, element: <EffectPage {...e} /> })),
 })
 const _specs = createRoute({
-  index: <SpecPage/>
+  index: <SpecPage />,
 })
 
 const _root = createRoute({
-  index: <TopPage/>,
+  index: <TopPage />,
   subRoutes: {
-    'moves': _moves,
-    'effects': _effects,
-    'specs': _specs,
-  }
+    docs: createRoute({
+      subRoutes: {
+        moves: _moves,
+        effects: _effects,
+        specs: _specs,
+      },
+    }),
+  },
 })
 
 // ...
 
-const globalRouteContext = React.createContext<Record<RouteKey, string[]>>({});
-const useAbsolutePath = ({key}: {key: RouteKey}) => {
+const globalRouteContext = React.createContext<Record<RouteKey, string[]>>({})
+const useAbsolutePath = ({ key }: { key: RouteKey }) => {
   const globalRouteStore = React.useContext(globalRouteContext)
   // if not included, throws error
   return globalRouteStore[key]
 }
 
 const makeTree = (root: Omit<DirRoute, 'name'>) => {
-  const q: [DirRoute, string[]][] = [[{...root, name: ''}, ['']]]
-  if (root.index) console.log('/index.html')
+  const contextMap: Record<RouteKey, string[]> = {}
+
+  const q: [DirRoute, string[]][] = [[{ ...root, name: '' }, ['']]]
+  //if (root.index) console.log('/index.html')
 
   while (q.length) {
     const [route, path] = q.pop()!
+    contextMap[route.key] = path
+
     for (const child of route.children) {
       if ('element' in child) {
-        console.log([...path, child.name].join('/'))
+        //console.log([...path, child.name].join('/'))
       } else {
         q.push([child, [...path, child.name]])
-        if (route.index) console.log([...path, `${child.name}.html`])
+        //if (route.index) console.log([...path, `${child.name}.html`].join('/'))
       }
     }
   }
+
+  return contextMap
 }
 
 export const test = () => {
-  makeTree(_root)
+  const map = makeTree(_root)
+  console.log(map[_root.key].join('/'))
+  console.log(map[_moves.key].join('/'))
+  console.log(map[_effects.key].join('/'))
+  console.log(map[_specs.key].join('/'))
 }
-
