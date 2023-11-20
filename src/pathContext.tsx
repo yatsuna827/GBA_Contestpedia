@@ -60,20 +60,23 @@ const paths = {
 
 // useGlobalPath(fileRoute);
 
+type RouteKey = symbol & { readonly __RouteKey: unique symbol }
 type FileRoute<T extends string = string> = {
+  key: RouteKey
   name: T
   element: JSX.Element
 }
-type RouteKey = symbol & { readonly __RouteKey: unique symbol }
 type DirRoute = {
   key: RouteKey
   name: string
   index: JSX.Element | null
-  children: (FileRoute<string> | DirRoute)[]
+  children: Record<string, FileRoute<string> | DirRoute>
 }
 
 const htmlRoute = <T extends string>({ name, element }: { name: T; element: JSX.Element }): FileRoute<`${T}.html`> => {
+  const key = Symbol('RouteKey') as RouteKey
   return {
+    key,
     element,
     name: `${name}.html`,
   }
@@ -81,34 +84,60 @@ const htmlRoute = <T extends string>({ name, element }: { name: T; element: JSX.
 
 const createRoute = ({
   index,
-  children,
+  fileRoutes,
   subRoutes,
 }: {
   index?: JSX.Element
-  children?: FileRoute[]
+  fileRoutes?: FileRoute[]
   subRoutes?: Record<string, Omit<DirRoute, 'name'>>
 }): Omit<DirRoute, 'name'> => {
   const key = Symbol('RouteKey') as RouteKey
+  const children = {
+    ...Object.fromEntries((subRoutes ? Object.entries(subRoutes).map(([name, dir]) => ([name, { ...dir, name }])) : [])),
+    ...Object.fromEntries(fileRoutes?.map((r) => [r.name, r]) ?? [])
+  }
 
   return {
     key,
     index: index ?? null,
-    children: [
-      ...(subRoutes ? Object.entries(subRoutes).map(([name, dir]) => ({ ...dir, name })) : []),
-      ...(children ?? []),
-    ],
+    children,
+  }
+}
+
+// こっちはsourceでgetできるようにしたい
+const createRoute2 = <T,>({
+  index,
+  source,
+  selector,
+  subRoutes,
+}: {
+  index?: JSX.Element
+  source: readonly T[]
+  selector: (data: T) => FileRoute,
+  subRoutes?: Record<string, Omit<DirRoute, 'name'>>
+}): Omit<DirRoute, 'name'> => {
+  const key = Symbol('RouteKey') as RouteKey
+  const children = {
+    ...Object.fromEntries((subRoutes ? Object.entries(subRoutes).map(([name, dir]) => ([name, { ...dir, name }])) : [])),
+    ...Object.fromEntries(source.map(selector).map((r) => [r.name, r]) ?? [])
+  }
+
+  return {
+    key,
+    index: index ?? null,
+    children,
   }
 }
 
 const _moves = createRoute({
   index: <MovesIndexPage />,
-  children: moves
+  fileRoutes: moves
     .filter((x): x is Move => !!x.effectId)
     .map((m) => htmlRoute({ name: m.id.toString().padStart(3, '0'), element: <MovePage {...m} /> })),
 })
 const _effects = createRoute({
   index: <EffectsIndexPage />,
-  children: effects.map((e) => htmlRoute({ name: e.id, element: <EffectPage {...e} /> })),
+  fileRoutes: effects.map((e) => htmlRoute({ name: e.id, element: <EffectPage {...e} /> })),
 })
 const _specs = createRoute({
   index: <SpecPage />,
@@ -146,12 +175,11 @@ const makeTree = (root: Omit<DirRoute, 'name'>) => {
     const [route, path] = q.pop()!
     contextMap[route.key] = path
 
-    for (const child of route.children) {
+    for (const child of Object.values(route.children)) {
       if ('element' in child) {
-        //console.log([...path, child.name].join('/'))
+        contextMap[child.key] = [...path, child.name]
       } else {
         q.push([child, [...path, child.name]])
-        //if (route.index) console.log([...path, `${child.name}.html`].join('/'))
       }
     }
   }
