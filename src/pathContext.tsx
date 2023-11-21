@@ -27,42 +27,13 @@ const InnerLink: React.FC<InnerLinkProps> = ({ to }) => {
   return <></>
 }
 
-// _root['docs']['effects.html']
-// _root['']
-
-/*
-const paths = {
-  index,
-  namedChildren,
-  mappedChildren,
-}
-
-- hoge.html
-- hoge/
-  - foo.html
-  - bar.html
-  - 001.html
-  - 002.html
-  ...
-
-みたいになる
-*/
-
-// mappedの宣言は1回でいい、複数sourceがあるならマージしてください。
-// サブディレクトリは？
-
-// やりたかったことってなんだっけ？？？
-// 「パスの安全な計算」だったはずでは？
-// パスオブジェクトさえあればいいはずでは？？？？？
-
-// ドキュメント全体の構造をオブジェクトとして表現したい
-// 「ここはMovesからマッピングされているからMove.idを渡して特定できる」みたいなこともやりたい
-
-// useGlobalPath(fileRoute);
+// TODO
+// - indexがnullならnullを返したい
 
 type RouteKey = symbol & { readonly __RouteKey: unique symbol }
+type FileRouteKey = RouteKey & { readonly __FileRouteKey: unique symbol }
 type FileRoute<T extends string = string> = {
-  key: RouteKey
+  key: FileRouteKey
   name: T
   element: JSX.Element
 }
@@ -74,7 +45,7 @@ type DirRoute = {
 }
 
 const htmlRoute = <T extends string>({ name, element }: { name: T; element: JSX.Element }): FileRoute<`${T}.html`> => {
-  const key = Symbol('RouteKey') as RouteKey
+  const key = Symbol('RouteKey') as FileRouteKey
   return {
     key,
     element,
@@ -104,28 +75,34 @@ const createRoute = ({
   }
 }
 
-// こっちはsourceでgetできるようにしたい
-const createRoute2 = <T,>({
+const createRoute2 = <T extends {id: string}, U extends readonly [...T[], T]>({
   index,
   source,
   selector,
   subRoutes,
 }: {
   index?: JSX.Element
-  source: readonly T[]
-  selector: (data: T) => FileRoute,
+  source: U
+  selector: (data: U[number]) => FileRoute,
   subRoutes?: Record<string, Omit<DirRoute, 'name'>>
-}): Omit<DirRoute, 'name'> => {
+}) => {
   const key = Symbol('RouteKey') as RouteKey
   const children = {
     ...Object.fromEntries((subRoutes ? Object.entries(subRoutes).map(([name, dir]) => ([name, { ...dir, name }])) : [])),
     ...Object.fromEntries(source.map(selector).map((r) => [r.name, r]) ?? [])
   }
 
+  const childrenMap = Object.fromEntries(source.map((data) => [data.id, selector(data)]))
+  const get = (x: U[number]['id']) => {
+    if (x in childrenMap) throw new Error(`${x} is not in source.`)
+    return childrenMap[x]
+  }
+
   return {
     key,
     index: index ?? null,
     children,
+    get
   }
 }
 
@@ -135,9 +112,10 @@ const _moves = createRoute({
     .filter((x): x is Move => !!x.effectId)
     .map((m) => htmlRoute({ name: m.id.toString().padStart(3, '0'), element: <MovePage {...m} /> })),
 })
-const _effects = createRoute({
+const _effects = createRoute2({
   index: <EffectsIndexPage />,
-  fileRoutes: effects.map((e) => htmlRoute({ name: e.id, element: <EffectPage {...e} /> })),
+  source: effects,
+  selector: (e) => htmlRoute({ name: e.id, element: <EffectPage {...e} /> }),
 })
 const _specs = createRoute({
   index: <SpecPage />,
@@ -159,7 +137,7 @@ const _root = createRoute({
 // ...
 
 const globalRouteContext = React.createContext<Record<RouteKey, string[]>>({})
-const useAbsolutePath = ({ key }: { key: RouteKey }) => {
+const useAbsolutePath = ({ key }: { key: FileRouteKey }) => {
   const globalRouteStore = React.useContext(globalRouteContext)
   // if not included, throws error
   return globalRouteStore[key]
@@ -193,4 +171,7 @@ export const test = () => {
   console.log(map[_moves.key].join('/'))
   console.log(map[_effects.key].join('/'))
   console.log(map[_specs.key].join('/'))
+
+  useAbsolutePath(_effects.get('A00'))
+  // useAbsolutePath(_moves) // type error!!
 }
