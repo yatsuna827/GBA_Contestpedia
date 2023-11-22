@@ -45,7 +45,7 @@ type DirRoute = {
 }
 
 const htmlRoute = <T extends string>({ name, element }: { name: T; element: JSX.Element }): FileRoute<`${T}.html`> => {
-  const key = Symbol('RouteKey') as FileRouteKey
+  const key = Symbol('FileRouteKey') as FileRouteKey
   return {
     key,
     element,
@@ -64,8 +64,8 @@ const createRoute = ({
 }): Omit<DirRoute, 'name'> => {
   const key = Symbol('RouteKey') as RouteKey
   const children = {
-    ...Object.fromEntries((subRoutes ? Object.entries(subRoutes).map(([name, dir]) => ([name, { ...dir, name }])) : [])),
-    ...Object.fromEntries(fileRoutes?.map((r) => [r.name, r]) ?? [])
+    ...Object.fromEntries(subRoutes ? Object.entries(subRoutes).map(([name, dir]) => [name, { ...dir, name }]) : []),
+    ...Object.fromEntries(fileRoutes?.map((r) => [r.name, r]) ?? []),
   }
 
   return {
@@ -75,7 +75,7 @@ const createRoute = ({
   }
 }
 
-const createRoute2 = <T extends {id: string}, U extends readonly [...T[], T]>({
+const createRoute2 = <T extends { id: string }, U extends readonly [...T[], T]>({
   index,
   source,
   selector,
@@ -83,26 +83,27 @@ const createRoute2 = <T extends {id: string}, U extends readonly [...T[], T]>({
 }: {
   index?: JSX.Element
   source: U
-  selector: (data: U[number]) => FileRoute,
+  selector: (data: U[number]) => FileRoute
   subRoutes?: Record<string, Omit<DirRoute, 'name'>>
 }) => {
   const key = Symbol('RouteKey') as RouteKey
+  const fileRouteMap = Object.fromEntries(source.map((data) => [data.id, selector(data)]))
+
   const children = {
-    ...Object.fromEntries((subRoutes ? Object.entries(subRoutes).map(([name, dir]) => ([name, { ...dir, name }])) : [])),
-    ...Object.fromEntries(source.map(selector).map((r) => [r.name, r]) ?? [])
+    ...Object.fromEntries(subRoutes ? Object.entries(subRoutes).map(([name, dir]) => [name, { ...dir, name }]) : []),
+    ...Object.fromEntries(Object.values(fileRouteMap).map((value) => [value.name, value])),
   }
 
-  const childrenMap = Object.fromEntries(source.map((data) => [data.id, selector(data)]))
   const get = (x: U[number]['id']) => {
-    if (x in childrenMap) throw new Error(`${x} is not in source.`)
-    return childrenMap[x]
+    if (!(x in fileRouteMap)) throw new Error(`${x} is not in source.`)
+    return fileRouteMap[x]
   }
 
   return {
     key,
     index: index ?? null,
     children,
-    get
+    get,
   }
 }
 
@@ -136,13 +137,6 @@ const _root = createRoute({
 
 // ...
 
-const globalRouteContext = React.createContext<Record<RouteKey, string[]>>({})
-const useAbsolutePath = ({ key }: { key: FileRouteKey }) => {
-  const globalRouteStore = React.useContext(globalRouteContext)
-  // if not included, throws error
-  return globalRouteStore[key]
-}
-
 const makeTree = (root: Omit<DirRoute, 'name'>) => {
   const contextMap: Record<RouteKey, string[]> = {}
 
@@ -165,6 +159,15 @@ const makeTree = (root: Omit<DirRoute, 'name'>) => {
   return contextMap
 }
 
+const _globalRouteStore = makeTree(_root)
+
+const globalRouteContext = React.createContext<Record<RouteKey, string[]>>({})
+const useAbsolutePath = ({ key }: { key: FileRouteKey }) => {
+  const globalRouteStore = _globalRouteStore // React.useContext(globalRouteContext)
+  // if not included, throws error
+  return _globalRouteStore[key]!
+}
+
 export const test = () => {
   const map = makeTree(_root)
   console.log(map[_root.key].join('/'))
@@ -172,6 +175,7 @@ export const test = () => {
   console.log(map[_effects.key].join('/'))
   console.log(map[_specs.key].join('/'))
 
-  useAbsolutePath(_effects.get('A00'))
+  const path = useAbsolutePath(_effects.get('A00'))
+  console.log(path.join('/'))
   // useAbsolutePath(_moves) // type error!!
 }
