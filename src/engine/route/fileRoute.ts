@@ -1,4 +1,4 @@
-import type { FileRouteKey, RouteKey } from './routeKey'
+import type { FileRouteKey } from './routeKey'
 
 export type FileRoute<T extends string = string> = {
   key: FileRouteKey

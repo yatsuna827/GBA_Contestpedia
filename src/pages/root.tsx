@@ -1,7 +1,9 @@
-import { createRoute } from '@src/engine/route'
-import { movesRoute } from '@src/pages/moves/indexPage'
-import { effectsRoute } from '@src/pages/effects/indexPage'
-import { specsRoute } from '@src/pages/spec/indexPage'
+import { createRoute } from '@engine/route'
+import { InnerLink } from '@engine/link'
+
+import { movesRoute } from './moves'
+import { effectsRoute } from './effects'
+import { specsRoute } from './spec'
 
 const TopPage: React.FC = () => (
   <html>
@@ -16,10 +18,10 @@ const TopPage: React.FC = () => (
       <h2>目次</h2>
       <ul>
         <li>
-          <a href="./docs/moves.html">わざデータ</a>
+          <InnerLink to={movesRoute.index!}>わざデータ</InnerLink>
         </li>
         <li>
-          <a href="./docs/specs.html">コンテストの仕様</a>
+          <InnerLink to={specsRoute.index!}>コンテストの仕様</InnerLink>
         </li>
       </ul>
     </body>

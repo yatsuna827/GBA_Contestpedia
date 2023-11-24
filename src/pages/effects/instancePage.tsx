@@ -1,10 +1,12 @@
 import React from 'react'
 
+import { InnerLink } from '@engine/link'
 import { type MoveEffect, getMoves } from '@data/effects'
 import { type Move } from '@data/moves'
-
 import { Appeal, Jamming } from '@components/points'
 import { AppealTypeSpan } from '@components/appealTypeSpan'
+
+import { movesRoute } from '../moves'
 
 export const EffectPage: React.FC<MoveEffect> = ({ id, appeal, jamming, description, inGameDescription }) => {
   return (
@@ -83,12 +85,10 @@ const MovesTable: React.FC<{ moves: readonly Move[] }> = ({ moves }) => {
 }
 
 const Row: React.FC<Move> = ({ id, name, type }) => {
-  const path = `../moves/${id.toString().padStart(3, '0')}.html`
-
   return (
     <tr>
       <td>
-        <a href={path}>{name}</a>
+        <InnerLink to={movesRoute.get(id)}>{name}</InnerLink>
       </td>
       <td>
         <AppealTypeSpan appealType={type} />

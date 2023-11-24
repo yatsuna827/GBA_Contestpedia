@@ -1,3 +1,3 @@
-import React from 'react'
+import { createContext } from 'react'
 
-export const PathContext = React.createContext([''])
+export const PathContext = createContext([''])

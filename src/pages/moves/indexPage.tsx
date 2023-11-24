@@ -1,10 +1,11 @@
 import React from 'react'
 
+import { InnerLink } from '@engine/link'
 import { AppealType, toEn } from '@data/appealType'
 import { type Move, moves } from '@data/moves'
-import { MovePage } from '@src/pages/moves'
-import { createRoute } from '@src/engine/route/dirRoute'
-import { htmlRoute } from '@src/engine/route/fileRoute'
+
+import { effectsRoute } from '../effects'
+import { movesRoute } from '../moves'
 
 export const MovesIndexPage: React.FC = () => {
   return (
@@ -30,7 +31,7 @@ const TypeSection: React.FC<{ appealType: AppealType }> = ({ appealType }) => {
   const typeJp = appealType
   const typeEn = toEn(appealType)
 
-  const filteredMoves = moves.filter((m): m is Move => m.type === appealType)
+  const filteredMoves = moves.filter((m) => m.type === appealType)
 
   return (
     <>
@@ -66,18 +67,11 @@ const Row: React.FC<Move> = ({ id, name, effectId }: Move) => {
   return (
     <tr>
       <td>
-        <a href={`./moves/${id.toString().padStart(3, '0')}.html`}>{name}</a>
+        <InnerLink to={movesRoute.get(id)}>{name}</InnerLink>
       </td>
       <td>
-        <a href={`./effects/${effectId}.html`}>{effectId}</a>
+        <InnerLink to={effectsRoute.get(effectId)}>{effectId}</InnerLink>
       </td>
     </tr>
   )
 }
-
-export const movesRoute = createRoute({
-  index: <MovesIndexPage />,
-  fileRoutes: moves
-    .filter((x): x is Move => !!x.effectId)
-    .map((m) => htmlRoute({ name: m.id.toString().padStart(3, '0'), element: <MovePage {...m} /> })),
-})

@@ -1,5 +1,3 @@
-import React from 'react'
-
 const PointsSpan: React.FC<{ p: number; c: 'appeal' | 'jamming' }> = ({ p, c }) => {
   return (
     <span className="points">

@@ -4,6 +4,7 @@
   "type": "module",
   "scripts": {
     "build": "bun run ./src/index.ts",
+    "build-and-format": "bun run build ; bun run format:docs",
     "check": "bun x tsc",
     "format:docs": "bun x prettier ./docs/ --write --log-level=warn",
     "format:src": "bun x prettier ./src/ --write --log-level=warn"

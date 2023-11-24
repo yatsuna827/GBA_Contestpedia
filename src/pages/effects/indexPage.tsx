@@ -1,11 +1,11 @@
 import React from 'react'
 
+import { InnerLink } from '@engine/link'
 import { type MoveEffect, effects } from '@data/effects'
-import { EffectPage } from '@src/pages/effects'
-import { InnerLink } from '@src/engine/link'
-import { createRoute2, htmlRoute } from '@src/engine/route'
 
-const EffectsIndexPage: React.FC = () => {
+import { effectsRoute } from '.'
+
+export const EffectsIndexPage: React.FC = () => {
   return (
     <html>
       <head>
@@ -50,9 +50,3 @@ const Row: React.FC<MoveEffect> = ({ id, description }) => {
     </tr>
   )
 }
-
-export const effectsRoute = createRoute2({
-  index: <EffectsIndexPage />,
-  source: effects,
-  selector: (e) => htmlRoute({ name: e.id, element: <EffectPage {...e} /> }),
-})

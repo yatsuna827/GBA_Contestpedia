@@ -1,4 +1,4 @@
-import { FileRoute, htmlRoute } from '@src/engine/route/fileRoute'
+import { type FileRoute, htmlRoute } from './fileRoute'
 import type { RouteKey } from './routeKey'
 
 export type DirRoute = {
@@ -33,7 +33,8 @@ export const createRoute = ({
   }
 }
 
-export const createRoute2 = <T extends { id: string }, U extends readonly [...T[], T]>({
+// TODO: 名前がださいのでオーバーロード的なことをしたい
+export const createRoute2 = <T extends { id: string | number }, U extends readonly [...T[], T]>({
   index,
   source,
   selector,

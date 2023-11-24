@@ -1,4 +1,6 @@
 import { AppealType, toEn } from '@data/appealType'
+import { InnerLink } from '@src/engine/link'
+import { movesRoute } from '@src/pages/moves'
 
 export const AppealTypeSpan: React.FC<{ appealType: AppealType }> = ({ appealType }) => {
   const typeJp = appealType
@@ -6,7 +8,9 @@ export const AppealTypeSpan: React.FC<{ appealType: AppealType }> = ({ appealTyp
 
   return (
     <span className={typeEn}>
-      <a href={`../moves.html#${typeEn}`}>{typeJp}</a>
+      <InnerLink to={movesRoute.index!} fragment={typeEn}>
+        {typeJp}
+      </InnerLink>
     </span>
   )
 }
