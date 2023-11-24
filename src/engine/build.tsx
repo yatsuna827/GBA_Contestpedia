@@ -46,5 +46,6 @@ export const build = (rootRoute: Pick<DirRoute, 'key' | 'children' | 'index'>) =
 
   _build(rootRoute, routeStore)
 
+  // FIXME: htmlファイル以外のファイルを扱う仕組みを作っていないので、決め打ちコピーになっている
   fs.copyFileSync(`${__rootDir}/src/style.css`, `${__docDir}/docs/style.css`)
 }

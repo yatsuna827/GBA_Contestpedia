@@ -33,6 +33,7 @@ export const createRoute = ({
   }
 }
 
+// TODO: 名前がださいのでオーバーロード的なことをしたい
 export const createRoute2 = <T extends { id: string }, U extends readonly [...T[], T]>({
   index,
   source,
