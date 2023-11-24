@@ -7,6 +7,7 @@ import { AppealTypeSpan } from '@components/appealTypeSpan'
 import { Appeal, Jamming } from '@components/points'
 
 import { effectsRoute } from '../effects'
+import { movesRoute } from '../moves'
 
 export const MovePage: React.FC<Move> = ({ id, name, type, effectId }) => {
   const { appeal, jamming, inGameDescription, description } = getEffect(effectId)
@@ -120,7 +121,7 @@ const Row: React.FC<Move> = ({ id, name, type }) => {
   return (
     <tr>
       <td>
-        <a href={`./${id.toString().padStart(3, '0')}.html`}>{name}</a>
+        <InnerLink to={movesRoute.get(id)}>{name}</InnerLink>
       </td>
       <td>
         <AppealTypeSpan appealType={type} />

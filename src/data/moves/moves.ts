@@ -3,8 +3,9 @@ import combos from './combo'
 import type { AppealType } from '../appealType'
 import type { EffectId } from '../effects'
 
+export type MoveId = (typeof moves)[number]['id']
 export type Move = {
-  id: number
+  id: MoveId
   name: string
   type: AppealType
   effectId: EffectId
@@ -365,7 +366,7 @@ export const moves = [
   { id: 352, name: 'みずのはどう', type: 'うつくしさ', effectId: 'E02' },
   { id: 353, name: 'はめつのねがい', type: 'かっこよさ', effectId: 'G00' },
   { id: 354, name: 'サイコブースト', type: 'かしこさ', effectId: 'F00' },
-] as const satisfies readonly Move[]
+] as const
 
 // わるあがきのIDが飛ばされているため、そのまま配列へのインデックスアクセスをするとズレる
 const _moves = Object.fromEntries(moves.map((move) => [move.id, move])) as Record<number, Move>

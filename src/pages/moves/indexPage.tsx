@@ -5,6 +5,7 @@ import { AppealType, toEn } from '@data/appealType'
 import { type Move, moves } from '@data/moves'
 
 import { effectsRoute } from '../effects'
+import { movesRoute } from '../moves'
 
 export const MovesIndexPage: React.FC = () => {
   return (
@@ -66,7 +67,7 @@ const Row: React.FC<Move> = ({ id, name, effectId }: Move) => {
   return (
     <tr>
       <td>
-        <a href={`./moves/${id.toString().padStart(3, '0')}.html`}>{name}</a>
+        <InnerLink to={movesRoute.get(id)}>{name}</InnerLink>
       </td>
       <td>
         <InnerLink to={effectsRoute.get(effectId)}>{effectId}</InnerLink>
