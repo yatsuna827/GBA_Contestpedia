@@ -1,0 +1,1 @@
+export { EffectPage } from './instancePage'
