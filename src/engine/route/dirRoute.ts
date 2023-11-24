@@ -5,63 +5,91 @@ export type DirRoute = {
   key: RouteKey
   name: string
   index: Pick<FileRoute, 'key' | 'element'> | null
-  children: Record<string, FileRoute<string> | DirRoute>
+  children: Record<string, FileRoute | DirRoute>
 }
 
-// TODO
-// - indexがnullならnullを返したい
-
-export const createRoute = ({
-  index,
-  fileRoutes,
-  subRoutes,
-}: {
-  index?: JSX.Element
-  fileRoutes?: FileRoute[]
+type Index = {
+  index: JSX.Element
+}
+type SubRoutes = {
   subRoutes?: Record<string, Omit<DirRoute, 'name'>>
-}): Omit<DirRoute, 'name'> => {
-  const key = Symbol('RouteKey') as RouteKey
-  const children = {
-    ...Object.fromEntries(subRoutes ? Object.entries(subRoutes).map(([name, dir]) => [name, { ...dir, name }]) : []),
-    ...Object.fromEntries(fileRoutes?.map((r) => [r.name, r]) ?? []),
+}
+type Source<T extends readonly unknown[] = []> = {
+  source: T
+  selector: (data: T[number]) => FileRoute
+}
+
+type Data = { id: string | number }
+type DataTuple = readonly [...Data[], Data]
+
+type CreateRouteFunction = {
+  (x: SubRoutes & Silentify<Index & Source>): {
+    key: RouteKey
+    index: null
+    children: Record<string, FileRoute | DirRoute>
+    get: (x: never) => FileRoute
   }
 
-  return {
-    key,
-    index: index ? htmlRoute({ name: 'index', element: index }) : null,
-    children,
+  (x: SubRoutes & Index & Silentify<Source>): {
+    key: RouteKey
+    index: FileRoute
+    children: Record<string, FileRoute | DirRoute>
+    get: (x: never) => FileRoute
+  }
+
+  <T extends DataTuple>(
+    x: SubRoutes & Source<T> & Silentify<Index>
+  ): {
+    key: RouteKey
+    index: null
+    children: Record<string, FileRoute | DirRoute>
+    get: (x: T[number]['id']) => FileRoute
+  }
+
+  <T extends DataTuple>(
+    x: SubRoutes & Index & Source<T>
+  ): {
+    key: RouteKey
+    index: FileRoute
+    children: Record<string, FileRoute | DirRoute>
+    get: (x: T[number]['id']) => FileRoute
   }
 }
 
-// TODO: 名前がださいのでオーバーロード的なことをしたい
-export const createRoute2 = <T extends { id: string | number }, U extends readonly [...T[], T]>({
+type Arg<T extends DataTuple> = SubRoutes & _<Index> & _<Source<T>>
+type Ret = {
+  key: RouteKey
+  children: Record<string, FileRoute | DirRoute>
+  index: any
+  get: (x: any) => FileRoute
+}
+
+export const createRoute: CreateRouteFunction = <T extends DataTuple>({
   index,
   source,
   selector,
   subRoutes,
-}: {
-  index?: JSX.Element
-  source: U
-  selector: (data: U[number]) => FileRoute
-  subRoutes?: Record<string, Omit<DirRoute, 'name'>>
-}) => {
+}: Arg<T>): Ret => {
   const key = Symbol('RouteKey') as RouteKey
-  const fileRouteMap = Object.fromEntries(source.map((data) => [data.id, selector(data)]))
+  const fileRouteMap = source && selector ? Object.fromEntries(source.map((data) => [data.id, selector(data)])) : {}
 
   const children = {
     ...Object.fromEntries(subRoutes ? Object.entries(subRoutes).map(([name, dir]) => [name, { ...dir, name }]) : []),
     ...Object.fromEntries(Object.values(fileRouteMap).map((value) => [value.name, value])),
   }
 
-  const get = (x: U[number]['id']) => {
-    if (!(x in fileRouteMap)) throw new Error(`${x} is not in source.`)
-    return fileRouteMap[x]
-  }
-
   return {
     key,
     index: index ? htmlRoute({ name: 'index', element: index }) : null,
     children,
-    get,
+    get(x: T[number]['id']) {
+      if (!(x in fileRouteMap)) throw new Error(`${x} is not in source.`)
+      return fileRouteMap[x]
+    },
   }
 }
+
+type Silentify<T> = {
+  [K in keyof T]?: undefined
+}
+type _<T> = T | Silentify<T>

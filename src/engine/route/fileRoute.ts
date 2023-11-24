@@ -1,17 +1,11 @@
 import type { FileRouteKey } from './routeKey'
 
-export type FileRoute<T extends string = string> = {
+export type FileRoute = {
   key: FileRouteKey
-  name: T
+  name: string
   element: JSX.Element
 }
-export const htmlRoute = <T extends string>({
-  name,
-  element,
-}: {
-  name: T
-  element: JSX.Element
-}): FileRoute<`${T}.html`> => {
+export const htmlRoute = <T extends string>({ name, element }: { name: T; element: JSX.Element }): FileRoute => {
   const key = Symbol('FileRouteKey') as FileRouteKey
   return {
     key,

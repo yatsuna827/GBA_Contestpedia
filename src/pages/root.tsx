@@ -18,10 +18,10 @@ const TopPage: React.FC = () => (
       <h2>目次</h2>
       <ul>
         <li>
-          <InnerLink to={movesRoute.index!}>わざデータ</InnerLink>
+          <InnerLink to={movesRoute.index}>わざデータ</InnerLink>
         </li>
         <li>
-          <InnerLink to={specsRoute.index!}>コンテストの仕様</InnerLink>
+          <InnerLink to={specsRoute.index}>コンテストの仕様</InnerLink>
         </li>
       </ul>
     </body>
