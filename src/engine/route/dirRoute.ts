@@ -2,6 +2,7 @@ import { type FileRoute, htmlRoute } from './fileRoute'
 import type { RouteKey } from './routeKey'
 
 export type DirRoute = {
+  tag: 'DirRoute'
   key: RouteKey
   name: string
   index: Pick<FileRoute, 'key' | 'element'> | null
@@ -24,6 +25,7 @@ type DataTuple = readonly [...Data[], Data]
 
 type CreateRouteFunction = {
   (x: SubRoutes & Silentify<Index & Source>): {
+    tag: 'DirRoute'
     key: RouteKey
     index: null
     children: Record<string, FileRoute | DirRoute>
@@ -31,6 +33,7 @@ type CreateRouteFunction = {
   }
 
   (x: SubRoutes & Index & Silentify<Source>): {
+    tag: 'DirRoute'
     key: RouteKey
     index: FileRoute
     children: Record<string, FileRoute | DirRoute>
@@ -40,6 +43,7 @@ type CreateRouteFunction = {
   <T extends DataTuple>(
     x: SubRoutes & Source<T> & Silentify<Index>
   ): {
+    tag: 'DirRoute'
     key: RouteKey
     index: null
     children: Record<string, FileRoute | DirRoute>
@@ -49,6 +53,7 @@ type CreateRouteFunction = {
   <T extends DataTuple>(
     x: SubRoutes & Index & Source<T>
   ): {
+    tag: 'DirRoute'
     key: RouteKey
     index: FileRoute
     children: Record<string, FileRoute | DirRoute>
@@ -58,6 +63,7 @@ type CreateRouteFunction = {
 
 type Arg<T extends DataTuple> = SubRoutes & _<Index> & _<Source<T>>
 type Ret = {
+  tag: 'DirRoute'
   key: RouteKey
   children: Record<string, FileRoute | DirRoute>
   index: any
@@ -79,6 +85,7 @@ export const createRoute: CreateRouteFunction = <T extends DataTuple>({
   }
 
   return {
+    tag: 'DirRoute',
     key,
     index: index ? htmlRoute({ name: 'index', element: index }) : null,
     children,

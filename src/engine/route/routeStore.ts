@@ -15,13 +15,8 @@ export const buildRouteStore = (root: Pick<DirRoute, 'key' | 'children' | 'index
     contextMap[route.key] = path
 
     for (const child of Object.values(route.children)) {
-      if ('element' in child) {
-        child satisfies FileRoute
-
-        contextMap[child.key] = [...path, child.name]
-      } else {
-        child satisfies DirRoute
-
+      contextMap[child.key] = [...path, child.name]
+      if (child.tag === 'DirRoute') {
         if (child.index) contextMap[child.index.key] = [...path, `${child.name}.html`]
         q.push([child, [...path, child.name]])
       }
