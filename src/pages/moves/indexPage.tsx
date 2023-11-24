@@ -2,6 +2,8 @@ import React from 'react'
 
 import { AppealType, toEn } from '@data/appealType'
 import { type Move, moves } from '@data/moves'
+import { InnerLink } from '@src/engine/link'
+import { effectsRoute } from '../effects'
 
 export const MovesIndexPage: React.FC = () => {
   return (
@@ -66,7 +68,7 @@ const Row: React.FC<Move> = ({ id, name, effectId }: Move) => {
         <a href={`./moves/${id.toString().padStart(3, '0')}.html`}>{name}</a>
       </td>
       <td>
-        <a href={`./effects/${effectId}.html`}>{effectId}</a>
+        <InnerLink to={effectsRoute.get(effectId)}>{effectId}</InnerLink>
       </td>
     </tr>
   )

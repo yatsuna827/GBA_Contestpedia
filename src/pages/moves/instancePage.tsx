@@ -6,6 +6,8 @@ import { type Move, moves } from '@data/moves'
 
 import { AppealTypeSpan } from '@components/appealTypeSpan'
 import { Appeal, Jamming } from '@components/points'
+import { InnerLink } from '@src/engine/link'
+import { effectsRoute } from '@src/pages/effects'
 
 export const MovePage: React.FC<Move> = ({ id, name, type, effectId }) => {
   const { appeal, jamming, inGameDescription, description } = getEffect(effectId)
@@ -64,7 +66,7 @@ export const MovePage: React.FC<Move> = ({ id, name, type, effectId }) => {
           <tr>
             <th>効果ID</th>
             <td>
-              <a href={`../effects/${effectId}.html`}>{effectId}</a>
+              <InnerLink to={effectsRoute.get(effectId)}>{effectId}</InnerLink>
             </td>
           </tr>
           <tr>
