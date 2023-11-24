@@ -1,3 +1,4 @@
+import { createRoute } from '@src/engine/route/dirRoute'
 import React from 'react'
 
 export const SpecPage: React.FC = () => (
@@ -13,3 +14,7 @@ export const SpecPage: React.FC = () => (
     </body>
   </html>
 )
+
+export const specsRoute = createRoute({
+  index: <SpecPage />,
+})
