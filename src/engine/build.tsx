@@ -23,10 +23,11 @@ const _writeToFile = (route: Pick<FileRoute, 'key' | 'element'>, routeStore: Rou
 const _build = (route: Pick<DirRoute, 'key' | 'children' | 'index'>, routeStore: RouteStore) => {
   if (route.index) _writeToFile(route.index, routeStore)
   for (const child of Object.values(route.children)) {
-    if ('children' in child) {
+    if (child.tag === 'DirRoute') {
       child satisfies DirRoute
 
-      const realDirPath = `${__docDir}/docs/${child.name}`
+      const path = routeStore[child.key]
+      const realDirPath = [__docDir, ...path].join('/')
       if (!fs.existsSync(realDirPath)) fs.mkdirSync(realDirPath, { recursive: true })
 
       _build(child, routeStore)

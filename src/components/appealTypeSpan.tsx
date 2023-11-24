@@ -8,7 +8,7 @@ export const AppealTypeSpan: React.FC<{ appealType: AppealType }> = ({ appealTyp
 
   return (
     <span className={typeEn}>
-      <InnerLink to={movesRoute.index!} fragment={typeEn}>
+      <InnerLink to={movesRoute.index} fragment={typeEn}>
         {typeJp}
       </InnerLink>
     </span>
