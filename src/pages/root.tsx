@@ -1,5 +1,5 @@
-import { createRoute } from '@src/engine/route'
-import { InnerLink } from '@src/engine/link'
+import { createRoute } from '@engine/route'
+import { InnerLink } from '@engine/link'
 
 import { movesRoute } from './moves'
 import { effectsRoute } from './effects'

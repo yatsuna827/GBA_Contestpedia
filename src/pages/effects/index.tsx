@@ -1,5 +1,6 @@
-import { effects } from '@src/data/effects'
-import { createRoute2, htmlRoute } from '@src/engine/route'
+import { createRoute2, htmlRoute } from '@engine/route'
+
+import { effects } from '@data/effects'
 
 import { EffectsIndexPage } from './indexPage'
 import { EffectPage } from './instancePage'

@@ -1,5 +1,5 @@
-import { moves } from '@src/data/moves'
-import { createRoute, htmlRoute } from '@src/engine/route'
+import { createRoute, htmlRoute } from '@engine/route'
+import { moves } from '@data/moves'
 
 import { MovesIndexPage } from './indexPage'
 import { MovePage } from './instancePage'

@@ -1,4 +1,4 @@
-import { FileRoute, htmlRoute } from '@src/engine/route/fileRoute'
+import { type FileRoute, htmlRoute } from './fileRoute'
 import type { RouteKey } from './routeKey'
 
 export type DirRoute = {

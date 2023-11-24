@@ -1,7 +1,8 @@
 import React from 'react'
 
+import { InnerLink } from '@engine/link'
 import { type MoveEffect, effects } from '@data/effects'
-import { InnerLink } from '@src/engine/link'
+
 import { effectsRoute } from '.'
 
 export const EffectsIndexPage: React.FC = () => {

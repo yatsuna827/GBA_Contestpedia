@@ -1,12 +1,12 @@
 import React from 'react'
 
-import { getEffect, getMoves } from '@src/data/effects'
-import { type Move, comboFrom, comboTo } from '@src/data/moves'
-
+import { InnerLink } from '@engine/link'
+import { getEffect, getMoves } from '@data/effects'
+import { type Move, comboFrom, comboTo } from '@data/moves'
 import { AppealTypeSpan } from '@components/appealTypeSpan'
 import { Appeal, Jamming } from '@components/points'
-import { InnerLink } from '@src/engine/link'
-import { effectsRoute } from '@src/pages/effects'
+
+import { effectsRoute } from '../effects'
 
 export const MovePage: React.FC<Move> = ({ id, name, type, effectId }) => {
   const { appeal, jamming, inGameDescription, description } = getEffect(effectId)
