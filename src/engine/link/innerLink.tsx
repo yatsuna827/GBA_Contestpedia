@@ -7,11 +7,14 @@ import { useAbsolutePath } from './useAbsolutePath'
 
 type InnerLinkProps = {
   to: Pick<FileRoute, 'key'>
+  fragment?: string
   children?: React.ReactNode
 }
-export const InnerLink: React.FC<InnerLinkProps> = ({ to, children }) => {
+export const InnerLink: React.FC<InnerLinkProps> = ({ to, fragment, children }) => {
   const selfPath = useContext(PathContext)
   const toPath = useAbsolutePath(to)
 
-  return <a href={getRelativePath(selfPath, toPath)}>{children}</a>
+  const relativePath = getRelativePath(selfPath, toPath)
+
+  return <a href={fragment != null ? `${relativePath}#${fragment}` : relativePath}>{children}</a>
 }
