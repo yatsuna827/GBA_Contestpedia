@@ -1,8 +1,7 @@
 import React from 'react'
 
-import combos from '@data/combo'
-import { getEffect, getMoves } from '@data/effects'
-import { type Move, moves } from '@data/moves'
+import { getEffect, getMoves } from '@src/data/effects'
+import { type Move, comboFrom, comboTo } from '@src/data/moves'
 
 import { AppealTypeSpan } from '@components/appealTypeSpan'
 import { Appeal, Jamming } from '@components/points'
@@ -12,8 +11,6 @@ import { effectsRoute } from '@src/pages/effects'
 export const MovePage: React.FC<Move> = ({ id, name, type, effectId }) => {
   const { appeal, jamming, inGameDescription, description } = getEffect(effectId)
   const sameEffectMoves = getMoves(effectId).filter((other) => other.id !== id)
-  const comboTo = combos.filter(({ from }) => from === id).map(({ to }) => moves[to - 1] as Move)
-  const comboFrom = combos.filter(({ to }) => to === id).map(({ from }) => moves[from - 1] as Move)
 
   return (
     <html>
@@ -83,13 +80,13 @@ export const MovePage: React.FC<Move> = ({ id, name, type, effectId }) => {
           <span id="combo-to"></span>
           <a href="#combo-to">コンボ先のわざ</a>
         </h3>
-        <MovesTable moves={comboTo ?? []} />
+        <MovesTable moves={comboTo({ id })} />
 
         <h3>
           <span id="combo-from"></span>
           <a href="#combo-from">コンボ元のわざ</a>
         </h3>
-        <MovesTable moves={comboFrom ?? []} />
+        <MovesTable moves={comboFrom({ id })} />
 
         <h3>
           <span id="same-effect-moves"></span>

@@ -1,4 +1,4 @@
-import { type Move, moves } from './moves.js'
+import { type Move, moves } from './moves'
 
 // prettier-ignore
 export const effects = [
@@ -50,4 +50,4 @@ export type MoveEffect = {
 const _effectsMap = new Map<EffectId, MoveEffect>(effects.map((e) => [e.id, e]))
 
 export const getEffect = (id: EffectId): MoveEffect => _effectsMap.get(id)!
-export const getMoves = (effectId: EffectId): Move[] => moves.filter((m): m is Move => m.effectId === effectId)
+export const getMoves = (effectId: EffectId): Move[] => moves.filter((m) => m.effectId === effectId)

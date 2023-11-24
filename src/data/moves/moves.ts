@@ -1,7 +1,16 @@
-import type { AppealType } from './appealType'
-import type { EffectId } from './effects'
+import combos from './combo'
 
-export const moves: (Move | Struggle)[] = [
+import type { AppealType } from '../appealType'
+import type { EffectId } from '../effects'
+
+export type Move = {
+  id: number
+  name: string
+  type: AppealType
+  effectId: EffectId
+}
+
+export const moves = [
   { id: 1, name: 'はたく', type: 'たくましさ', effectId: 'A00' },
   { id: 2, name: 'からてチョップ', type: 'たくましさ', effectId: 'B04' },
   { id: 3, name: 'おうふくビンタ', type: 'たくましさ', effectId: 'D06' },
@@ -166,7 +175,7 @@ export const moves: (Move | Struggle)[] = [
   { id: 162, name: 'いかりのまえば', type: 'たくましさ', effectId: 'D04' },
   { id: 163, name: 'きりさく', type: 'かっこよさ', effectId: 'B04' },
   { id: 164, name: 'みがわり', type: 'かしこさ', effectId: 'C00' },
-  { id: 165, name: 'わるあがき' },
+  // { id: 165, name: 'わるあがき' },
   { id: 166, name: 'スケッチ', type: 'かしこさ', effectId: 'B07' },
   { id: 167, name: 'トリプルキック', type: 'かっこよさ', effectId: 'A00' },
   { id: 168, name: 'どろぼう', type: 'たくましさ', effectId: 'B08' },
@@ -356,18 +365,11 @@ export const moves: (Move | Struggle)[] = [
   { id: 352, name: 'みずのはどう', type: 'うつくしさ', effectId: 'E02' },
   { id: 353, name: 'はめつのねがい', type: 'かっこよさ', effectId: 'G00' },
   { id: 354, name: 'サイコブースト', type: 'かしこさ', effectId: 'F00' },
-]
+] as const satisfies readonly Move[]
 
-export type Move = {
-  id: number
-  name: string
-  type: AppealType
-  effectId: EffectId
-}
-
-type Struggle = {
-  id: 165
-  name: string
-  type?: undefined
-  effectId?: undefined
-}
+// わるあがきのIDが飛ばされているため、そのまま配列へのインデックスアクセスをするとズレる
+const _moves = Object.fromEntries(moves.map((move) => [move.id, move])) as Record<number, Move>
+export const comboTo = ({ id }: Pick<Move, 'id'>) =>
+  combos.filter(({ from }) => from === id).map(({ to }) => _moves[to] as Move)
+export const comboFrom = ({ id }: Pick<Move, 'id'>) =>
+  combos.filter(({ to }) => to === id).map(({ from }) => _moves[from] as Move)

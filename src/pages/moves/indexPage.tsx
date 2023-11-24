@@ -29,7 +29,7 @@ const TypeSection: React.FC<{ appealType: AppealType }> = ({ appealType }) => {
   const typeJp = appealType
   const typeEn = toEn(appealType)
 
-  const filteredMoves = moves.filter((m): m is Move => m.type === appealType)
+  const filteredMoves = moves.filter((m) => m.type === appealType)
 
   return (
     <>
