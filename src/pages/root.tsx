@@ -1,7 +1,8 @@
 import { createRoute } from '@src/engine/route'
-import { movesRoute } from '@src/pages/moves/indexPage'
-import { effectsRoute } from '@src/pages/effects/indexPage'
-import { specsRoute } from '@src/pages/spec/indexPage'
+
+import { movesRoute } from './moves'
+import { effectsRoute } from './effects'
+import { specsRoute } from './spec'
 
 const TopPage: React.FC = () => (
   <html>

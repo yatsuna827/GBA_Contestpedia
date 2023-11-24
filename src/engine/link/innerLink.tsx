@@ -1,4 +1,4 @@
-import React from 'react'
+import { useContext } from 'react'
 
 import { PathContext } from './context'
 import { getRelativePath } from './path'
@@ -10,7 +10,7 @@ type InnerLinkProps = {
   children?: React.ReactNode
 }
 export const InnerLink: React.FC<InnerLinkProps> = ({ to, children }) => {
-  const selfPath = React.useContext(PathContext)
+  const selfPath = useContext(PathContext)
   const toPath = useAbsolutePath(to)
 
   return <a href={getRelativePath(selfPath, toPath)}>{children}</a>

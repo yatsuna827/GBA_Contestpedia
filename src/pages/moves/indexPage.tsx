@@ -2,9 +2,6 @@ import React from 'react'
 
 import { AppealType, toEn } from '@data/appealType'
 import { type Move, moves } from '@data/moves'
-import { MovePage } from '@src/pages/moves'
-import { createRoute } from '@src/engine/route/dirRoute'
-import { htmlRoute } from '@src/engine/route/fileRoute'
 
 export const MovesIndexPage: React.FC = () => {
   return (
@@ -74,10 +71,3 @@ const Row: React.FC<Move> = ({ id, name, effectId }: Move) => {
     </tr>
   )
 }
-
-export const movesRoute = createRoute({
-  index: <MovesIndexPage />,
-  fileRoutes: moves
-    .filter((x): x is Move => !!x.effectId)
-    .map((m) => htmlRoute({ name: m.id.toString().padStart(3, '0'), element: <MovePage {...m} /> })),
-})

@@ -1,5 +1,3 @@
-import React from 'react'
-
 import { PathContext } from '@src/engine/link/context'
 import { FileRoute } from '../route/fileRoute'
 import { useAbsolutePath } from './useAbsolutePath'
