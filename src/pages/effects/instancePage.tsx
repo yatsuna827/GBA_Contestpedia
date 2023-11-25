@@ -1,19 +1,21 @@
 import React from 'react'
 
-import { InnerLink } from '@engine/link'
+import { useInnerLink, InnerLink } from '@engine/link'
 import { type MoveEffect, getMoves } from '@data/effects'
 import { type Move } from '@data/moves'
 import { Appeal, Jamming } from '@components/points'
 import { AppealTypeSpan } from '@components/appealTypeSpan'
 
+import { globalCss } from '../root'
 import { movesRoute } from '../moves'
 
 export const EffectPage: React.FC<MoveEffect> = ({ id, appeal, jamming, description, inGameDescription }) => {
+  const cssSrc = useInnerLink(globalCss)
   return (
     <html>
       <head>
         <title>{`GBAコンテスト辞典|わざ効果データ / ID:${id}`}</title>
-        <link rel="stylesheet" href="../style.css" />
+        <link rel="stylesheet" href={cssSrc} />
       </head>
 
       <body>

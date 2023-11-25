@@ -1,15 +1,18 @@
 import React from 'react'
 
-import { InnerLink } from '@engine/link'
+import { useInnerLink, InnerLink } from '@engine/link'
 import { getEffect, getMoves } from '@data/effects'
 import { type Move, comboFrom, comboTo } from '@data/moves'
 import { AppealTypeSpan } from '@components/appealTypeSpan'
 import { Appeal, Jamming } from '@components/points'
 
+import { globalCss } from '../root'
 import { effectsRoute } from '../effects'
 import { movesRoute } from '../moves'
 
 export const MovePage: React.FC<Move> = ({ id, name, type, effectId }) => {
+  const cssSrc = useInnerLink(globalCss)
+
   const { appeal, jamming, inGameDescription, description } = getEffect(effectId)
   const sameEffectMoves = getMoves(effectId).filter((other) => other.id !== id)
 
@@ -17,7 +20,7 @@ export const MovePage: React.FC<Move> = ({ id, name, type, effectId }) => {
     <html>
       <head>
         <title>{`GBAコンテスト辞典|わざデータ / ${name}`}</title>
-        <link rel="stylesheet" href="../style.css" />
+        <link rel="stylesheet" href={cssSrc} />
       </head>
 
       <body>

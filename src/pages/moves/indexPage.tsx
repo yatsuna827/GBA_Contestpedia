@@ -1,18 +1,20 @@
 import React from 'react'
 
-import { InnerLink } from '@engine/link'
+import { useInnerLink, InnerLink } from '@engine/link'
 import { AppealType, toEn } from '@data/appealType'
 import { type Move, moves } from '@data/moves'
 
 import { effectsRoute } from '../effects'
 import { movesRoute } from '../moves'
+import { globalCss } from '../root'
 
 export const MovesIndexPage: React.FC = () => {
+  const cssSrc = useInnerLink(globalCss)
   return (
     <html>
       <head>
         <title>GBAコンテスト辞典|わざデータ</title>
-        <link rel="stylesheet" href="./style.css" />
+        <link rel="stylesheet" href={cssSrc} />
       </head>
 
       <body>

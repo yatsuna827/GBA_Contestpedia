@@ -2,6 +2,7 @@ import type { RouteKey } from './routeKey'
 
 import type { DirRoute } from './dirRoute'
 import type { FileRoute } from './fileRoute'
+import type { AssetRoute } from './assetRoute'
 
 export type RouteStore = Record<RouteKey, string[]>
 export const buildRouteStore = (root: Pick<DirRoute, 'key' | 'children' | 'index'>): RouteStore => {
@@ -19,6 +20,12 @@ export const buildRouteStore = (root: Pick<DirRoute, 'key' | 'children' | 'index
       if (child.tag === 'DirRoute') {
         if (child.index) contextMap[child.index.key] = [...path, `${child.name}.html`]
         q.push([child, [...path, child.name]])
+      } else if (child.tag === 'FileRoute') {
+        child satisfies FileRoute
+        // なにもしなくていい
+      } else {
+        child satisfies AssetRoute
+        // なにもしなくていい
       }
     }
   }

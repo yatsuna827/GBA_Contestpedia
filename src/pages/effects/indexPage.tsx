@@ -1,16 +1,18 @@
 import React from 'react'
 
-import { InnerLink } from '@engine/link'
+import { useInnerLink, InnerLink } from '@engine/link'
 import { type MoveEffect, effects } from '@data/effects'
 
+import { globalCss } from '../root'
 import { effectsRoute } from '.'
 
 export const EffectsIndexPage: React.FC = () => {
+  const cssSrc = useInnerLink(globalCss)
   return (
     <html>
       <head>
         <title>GBAコンテスト辞典|わざ効果データ</title>
-        <link rel="stylesheet" href="./style.css" />
+        <link rel="stylesheet" href={cssSrc} />
       </head>
 
       <body>

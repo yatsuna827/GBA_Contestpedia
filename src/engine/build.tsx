@@ -1,7 +1,7 @@
 import fs from 'fs'
 import { renderToStaticMarkup } from 'react-dom/server'
 
-import { type DirRoute, type FileRoute, type RouteStore, buildRouteStore } from './route'
+import { type DirRoute, type FileRoute, type RouteStore, buildRouteStore, AssetRoute } from './route'
 import { PathInjector, GlobalRouteContext } from './link'
 
 const __rootDir = `${process.cwd()}`
@@ -19,6 +19,11 @@ const _writeToFile = (route: Pick<FileRoute, 'key' | 'element'>, routeStore: Rou
     )
   )
 }
+const _copyAsset = ({ key, src }: Pick<AssetRoute, 'key' | 'src'>, routeStore: RouteStore) => {
+  const path = routeStore[key]
+
+  fs.copyFileSync(src, [__docDir, ...path].join('/'))
+}
 
 const _build = (route: Pick<DirRoute, 'key' | 'children' | 'index'>, routeStore: RouteStore) => {
   if (route.index) _writeToFile(route.index, routeStore)
@@ -31,10 +36,14 @@ const _build = (route: Pick<DirRoute, 'key' | 'children' | 'index'>, routeStore:
       if (!fs.existsSync(realDirPath)) fs.mkdirSync(realDirPath, { recursive: true })
 
       _build(child, routeStore)
-    } else {
+    } else if (child.tag === 'FileRoute') {
       child satisfies FileRoute
 
       _writeToFile(child, routeStore)
+    } else {
+      child satisfies AssetRoute
+
+      _copyAsset(child, routeStore)
     }
   }
 }
@@ -46,7 +55,4 @@ export const build = (rootRoute: Pick<DirRoute, 'key' | 'children' | 'index'>) =
   fs.mkdirSync(__docDir, { recursive: true })
 
   _build(rootRoute, routeStore)
-
-  // FIXME: htmlファイル以外のファイルを扱う仕組みを作っていないので、決め打ちコピーになっている
-  fs.copyFileSync(`${__rootDir}/src/style.css`, `${__docDir}/docs/style.css`)
 }
