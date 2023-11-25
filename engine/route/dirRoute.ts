@@ -1,3 +1,4 @@
+import { type AssetRoute } from './assetRoute'
 import { type FileRoute, htmlRoute } from './fileRoute'
 import type { RouteKey } from './routeKey'
 
@@ -6,7 +7,7 @@ export type DirRoute = {
   key: RouteKey
   name: string
   index: Pick<FileRoute, 'key' | 'element'> | null
-  children: Record<string, FileRoute | DirRoute>
+  children: Record<string, AssetRoute | FileRoute | DirRoute>
 }
 
 type Index = {
@@ -14,6 +15,7 @@ type Index = {
 }
 type SubRoutes = {
   subRoutes?: Record<string, Omit<DirRoute, 'name'>>
+  assets?: AssetRoute[]
 }
 type Source<T extends readonly unknown[] = []> = {
   source: T
@@ -28,7 +30,7 @@ type CreateRouteFunction = {
     tag: 'DirRoute'
     key: RouteKey
     index: null
-    children: Record<string, FileRoute | DirRoute>
+    children: DirRoute['children']
     get: (x: never) => FileRoute
   }
 
@@ -36,7 +38,7 @@ type CreateRouteFunction = {
     tag: 'DirRoute'
     key: RouteKey
     index: FileRoute
-    children: Record<string, FileRoute | DirRoute>
+    children: DirRoute['children']
     get: (x: never) => FileRoute
   }
 
@@ -46,7 +48,7 @@ type CreateRouteFunction = {
     tag: 'DirRoute'
     key: RouteKey
     index: null
-    children: Record<string, FileRoute | DirRoute>
+    children: DirRoute['children']
     get: (x: T[number]['id']) => FileRoute
   }
 
@@ -56,7 +58,7 @@ type CreateRouteFunction = {
     tag: 'DirRoute'
     key: RouteKey
     index: FileRoute
-    children: Record<string, FileRoute | DirRoute>
+    children: DirRoute['children']
     get: (x: T[number]['id']) => FileRoute
   }
 }
@@ -65,7 +67,7 @@ type Arg<T extends DataTuple> = SubRoutes & _<Index> & _<Source<T>>
 type Ret = {
   tag: 'DirRoute'
   key: RouteKey
-  children: Record<string, FileRoute | DirRoute>
+  children: DirRoute['children']
   index: any
   get: (x: any) => FileRoute
 }
@@ -75,12 +77,14 @@ export const createRoute: CreateRouteFunction = <T extends DataTuple>({
   source,
   selector,
   subRoutes,
+  assets,
 }: Arg<T>): Ret => {
   const key = Symbol('RouteKey') as RouteKey
   const fileRouteMap = source && selector ? Object.fromEntries(source.map((data) => [data.id, selector(data)])) : {}
 
   const children = {
     ...Object.fromEntries(subRoutes ? Object.entries(subRoutes).map(([name, dir]) => [name, { ...dir, name }]) : []),
+    ...Object.fromEntries(assets?.map((value) => [value.name, value]) ?? []),
     ...Object.fromEntries(Object.values(fileRouteMap).map((value) => [value.name, value])),
   }
 

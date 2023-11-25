@@ -1,4 +1,6 @@
-export const getBranchPoint = (a: string[], b: string[]) => {
+import type { Path } from './types'
+
+export const getBranchPoint = (a: Path, b: Path): number => {
   const max = Math.min(a.length, b.length)
 
   for (let i = 0; i < max; i++) {
@@ -8,7 +10,7 @@ export const getBranchPoint = (a: string[], b: string[]) => {
   return max
 }
 
-export const getRelativePath = (from: string[], to: string[]) => {
+export const resolveRelativePath = (from: Path, to: Path): string => {
   const currentDir = from.slice(0, -1)
   const bp = getBranchPoint(currentDir, to)
 

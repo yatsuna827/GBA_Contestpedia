@@ -1,6 +1,7 @@
+import { InnerLink } from '@engine'
+
 import { AppealType, toEn } from '@data/appealType'
-import { InnerLink } from '@src/engine/link'
-import { movesRoute } from '@src/pages/moves'
+import { movesRoute } from '../moves'
 
 export const AppealTypeSpan: React.FC<{ appealType: AppealType }> = ({ appealType }) => {
   const typeJp = appealType

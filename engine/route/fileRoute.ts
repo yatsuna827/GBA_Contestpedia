@@ -6,7 +6,7 @@ export type FileRoute = {
   name: string
   element: JSX.Element
 }
-export const htmlRoute = <T extends string>({ name, element }: { name: T; element: JSX.Element }): FileRoute => {
+export const htmlRoute = ({ name, element }: { name: string; element: JSX.Element }): FileRoute => {
   const key = Symbol('FileRouteKey') as FileRouteKey
   return {
     tag: 'FileRoute',

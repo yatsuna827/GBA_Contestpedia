@@ -1,18 +1,14 @@
-import { createRoute } from '@engine/route'
-import { InnerLink } from '@engine/link'
+import { assetRoute, createRoute, InnerLink } from '@engine'
+
+import { Page } from './components/template'
 
 import { movesRoute } from './moves'
 import { effectsRoute } from './effects'
 import { specsRoute } from './spec'
 
-const TopPage: React.FC = () => (
-  <html>
-    <head>
-      <title>GBAコンテスト辞典</title>
-      <link rel="stylesheet" href="./docs/style.css" />
-    </head>
-
-    <body>
+const TopPage: React.FC = () => {
+  return (
+    <Page title="GBAコンテスト辞典">
       <h1>GBAコンテスト辞典</h1>
 
       <h2>目次</h2>
@@ -24,9 +20,12 @@ const TopPage: React.FC = () => (
           <InnerLink to={specsRoute.index}>コンテストの仕様</InnerLink>
         </li>
       </ul>
-    </body>
-  </html>
-)
+    </Page>
+  )
+}
+
+const __dirname = import.meta.dir
+export const globalCss = assetRoute({ name: 'style.css', src: `${__dirname}/style.css` })
 
 export const rootRoute = createRoute({
   index: <TopPage />,
@@ -37,6 +36,7 @@ export const rootRoute = createRoute({
         effects: effectsRoute,
         specs: specsRoute,
       },
+      assets: [globalCss],
     }),
   },
 })

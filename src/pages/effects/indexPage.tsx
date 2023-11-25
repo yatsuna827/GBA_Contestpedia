@@ -1,30 +1,25 @@
 import React from 'react'
 
-import { InnerLink } from '@engine/link'
+import { InnerLink } from '@engine'
 import { type MoveEffect, effects } from '@data/effects'
 
+import { Page } from '@components/template'
 import { effectsRoute } from '.'
 
 export const EffectsIndexPage: React.FC = () => {
   return (
-    <html>
-      <head>
-        <title>GBAコンテスト辞典|わざ効果データ</title>
-        <link rel="stylesheet" href="./style.css" />
-      </head>
+    <Page title="GBAコンテスト辞典|わざ効果データ">
+      <h1>わざ効果データ</h1>
 
-      <body>
-        <h1>わざ効果データ</h1>
-
-        <EffectsTable effects={effects} />
-      </body>
-    </html>
+      <EffectsTable effects={effects} />
+    </Page>
   )
 }
 
 const EffectsTable: React.FC<{ effects: readonly MoveEffect[] }> = ({ effects }) => {
   return (
     <table>
+      <caption>効果一覧</caption>
       <thead>
         <tr>
           <th>ID</th>
