@@ -18,8 +18,7 @@ export const EffectsIndexPage: React.FC = () => {
 
 const EffectsTable: React.FC<{ effects: readonly MoveEffect[] }> = ({ effects }) => {
   return (
-    <table>
-      <caption>効果一覧</caption>
+    <table aria-label="効果一覧">
       <thead>
         <tr>
           <th>ID</th>
