@@ -1,4 +1,4 @@
-import { useLink } from '@src/engine/link'
+import { useLink } from '@engine'
 import { globalCss } from '../root'
 
 export const SpecPage: React.FC = () => {

@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { useLink, InnerLink } from '@engine/link'
+import { useLink, InnerLink } from '@engine'
 import { type MoveEffect, effects } from '@data/effects'
 
 import { globalCss } from '../root'

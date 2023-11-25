@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { useLink, InnerLink } from '@engine/link'
+import { useLink, InnerLink } from '@engine'
 import { type MoveEffect, getMoves } from '@data/effects'
 import { type Move } from '@data/moves'
 import { Appeal, Jamming } from '@components/points'

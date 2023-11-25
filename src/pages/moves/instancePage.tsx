@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { useLink, InnerLink } from '@engine/link'
+import { useLink, InnerLink } from '@engine'
 import { getEffect, getMoves } from '@data/effects'
 import { type Move, comboFrom, comboTo } from '@data/moves'
 import { AppealTypeSpan } from '@components/appealTypeSpan'

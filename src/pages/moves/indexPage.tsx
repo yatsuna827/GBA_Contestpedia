@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { useLink, InnerLink } from '@engine/link'
+import { useLink, InnerLink } from '@engine'
 import { AppealType, toEn } from '@data/appealType'
 import { type Move, moves } from '@data/moves'
 

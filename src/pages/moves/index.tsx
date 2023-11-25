@@ -1,4 +1,4 @@
-import { createRoute, htmlRoute } from '@engine/route'
+import { createRoute, htmlRoute } from '@engine'
 import { moves } from '@data/moves'
 
 import { MovesIndexPage } from './indexPage'

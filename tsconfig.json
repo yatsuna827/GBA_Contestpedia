@@ -19,10 +19,9 @@
       "bun-types" // add Bun global
     ],
     "paths": {
+      "@engine": ["./engine"],
       "@src/*": ["./src/*"],
       "@data/*": ["./src/data/*"],
-      "@engine/*": ["./src/engine/*"],
-      "@pages/*": ["./src/pages/*"],
       "@components/*": ["./src/components/*"]
     }
   }

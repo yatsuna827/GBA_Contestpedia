@@ -1,4 +1,5 @@
-import { build } from './engine/build'
+import { build } from '@engine'
+
 import { rootRoute } from './pages/root'
 
 console.time('built ✨')

@@ -1,4 +1,4 @@
-import { createRoute } from '@engine/route'
+import { createRoute } from '@engine'
 
 import { SpecPage } from './indexPage'
 

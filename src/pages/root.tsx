@@ -1,7 +1,4 @@
-import { fileURLToPath } from 'node:url'
-
-import { assetRoute, createRoute } from '@engine/route'
-import { useLink, InnerLink } from '@engine/link'
+import { assetRoute, createRoute, useLink, InnerLink } from '@engine'
 
 import { movesRoute } from './moves'
 import { effectsRoute } from './effects'
