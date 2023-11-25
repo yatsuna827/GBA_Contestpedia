@@ -41,8 +41,7 @@ const TypeSection: React.FC<{ appealType: AppealType }> = ({ appealType }) => {
 
 const MovesTable: React.FC<{ moves: readonly Move[] }> = ({ moves }) => {
   return (
-    <table>
-      <caption>わざ一覧</caption>
+    <table aria-label="わざ一覧">
       <thead>
         <tr>
           <th>わざ名</th>
