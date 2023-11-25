@@ -1,19 +1,10 @@
-import { useLink } from '@engine'
-import { globalCss } from '../root'
+import { Page } from '@components/template'
 
 export const SpecPage: React.FC = () => {
-  const cssSrc = useLink(globalCss)
   return (
-    <html>
-      <head>
-        <title>GBAコンテスト辞典|コンテストの仕様</title>
-        <link rel="stylesheet" href={cssSrc} />
-      </head>
-
-      <body>
-        <h1>コンテストの仕様</h1>
-        工事中
-      </body>
-    </html>
+    <Page title="GBAコンテスト辞典|コンテストの仕様">
+      <h1>コンテストの仕様</h1>
+      工事中
+    </Page>
   )
 }

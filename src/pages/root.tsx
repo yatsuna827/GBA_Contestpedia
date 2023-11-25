@@ -1,32 +1,26 @@
-import { assetRoute, createRoute, useLink, InnerLink } from '@engine'
+import { assetRoute, createRoute, InnerLink } from '@engine'
+
+import { Page } from './components/template'
 
 import { movesRoute } from './moves'
 import { effectsRoute } from './effects'
 import { specsRoute } from './spec'
 
 const TopPage: React.FC = () => {
-  const cssSrc = useLink(globalCss)
   return (
-    <html>
-      <head>
-        <title>GBAコンテスト辞典</title>
-        <link rel="stylesheet" href={cssSrc} />
-      </head>
+    <Page title="GBAコンテスト辞典">
+      <h1>GBAコンテスト辞典</h1>
 
-      <body>
-        <h1>GBAコンテスト辞典</h1>
-
-        <h2>目次</h2>
-        <ul>
-          <li>
-            <InnerLink to={movesRoute.index}>わざデータ</InnerLink>
-          </li>
-          <li>
-            <InnerLink to={specsRoute.index}>コンテストの仕様</InnerLink>
-          </li>
-        </ul>
-      </body>
-    </html>
+      <h2>目次</h2>
+      <ul>
+        <li>
+          <InnerLink to={movesRoute.index}>わざデータ</InnerLink>
+        </li>
+        <li>
+          <InnerLink to={specsRoute.index}>コンテストの仕様</InnerLink>
+        </li>
+      </ul>
+    </Page>
   )
 }
 

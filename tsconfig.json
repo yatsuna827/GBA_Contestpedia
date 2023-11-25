@@ -20,9 +20,8 @@
     ],
     "paths": {
       "@engine": ["./engine"],
-      "@src/*": ["./src/*"],
       "@data/*": ["./src/data/*"],
-      "@components/*": ["./src/components/*"]
+      "@components/*": ["./src/pages/components/*"]
     }
   }
 }

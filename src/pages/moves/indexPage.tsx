@@ -1,31 +1,23 @@
 import React from 'react'
 
-import { useLink, InnerLink } from '@engine'
+import { InnerLink } from '@engine'
 import { AppealType, toEn } from '@data/appealType'
 import { type Move, moves } from '@data/moves'
+import { Page } from '@components/template'
 
 import { effectsRoute } from '../effects'
 import { movesRoute } from '../moves'
-import { globalCss } from '../root'
 
 export const MovesIndexPage: React.FC = () => {
-  const cssSrc = useLink(globalCss)
   return (
-    <html>
-      <head>
-        <title>GBAコンテスト辞典|わざデータ</title>
-        <link rel="stylesheet" href={cssSrc} />
-      </head>
-
-      <body>
-        <h1>わざデータ</h1>
-        <TypeSection appealType="かっこよさ" />
-        <TypeSection appealType="うつくしさ" />
-        <TypeSection appealType="かわいさ" />
-        <TypeSection appealType="かしこさ" />
-        <TypeSection appealType="たくましさ" />
-      </body>
-    </html>
+    <Page title="GBAコンテスト辞典|わざデータ">
+      <h1>わざデータ</h1>
+      <TypeSection appealType="かっこよさ" />
+      <TypeSection appealType="うつくしさ" />
+      <TypeSection appealType="かわいさ" />
+      <TypeSection appealType="かしこさ" />
+      <TypeSection appealType="たくましさ" />
+    </Page>
   )
 }
 

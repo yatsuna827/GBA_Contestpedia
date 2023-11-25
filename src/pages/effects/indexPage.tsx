@@ -1,26 +1,18 @@
 import React from 'react'
 
-import { useLink, InnerLink } from '@engine'
+import { InnerLink } from '@engine'
 import { type MoveEffect, effects } from '@data/effects'
 
-import { globalCss } from '../root'
+import { Page } from '@components/template'
 import { effectsRoute } from '.'
 
 export const EffectsIndexPage: React.FC = () => {
-  const cssSrc = useLink(globalCss)
   return (
-    <html>
-      <head>
-        <title>GBAコンテスト辞典|わざ効果データ</title>
-        <link rel="stylesheet" href={cssSrc} />
-      </head>
+    <Page title="GBAコンテスト辞典|わざ効果データ">
+      <h1>わざ効果データ</h1>
 
-      <body>
-        <h1>わざ効果データ</h1>
-
-        <EffectsTable effects={effects} />
-      </body>
-    </html>
+      <EffectsTable effects={effects} />
+    </Page>
   )
 }
 
