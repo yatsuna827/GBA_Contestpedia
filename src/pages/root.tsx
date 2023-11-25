@@ -1,3 +1,5 @@
+import { fileURLToPath } from 'node:url'
+
 import { assetRoute, createRoute } from '@engine/route'
 import { useLink, InnerLink } from '@engine/link'
 
@@ -31,7 +33,8 @@ const TopPage: React.FC = () => {
   )
 }
 
-export const globalCss = assetRoute({ name: 'style.css', src: `${process.cwd()}/src/style.css` })
+const __dirname = import.meta.dir
+export const globalCss = assetRoute({ name: 'style.css', src: `${__dirname}/style.css` })
 
 export const rootRoute = createRoute({
   index: <TopPage />,
