@@ -4,14 +4,13 @@ import { renderToStaticMarkup } from 'react-dom/server'
 import { type DirRoute, type FileRoute, type AssetRoute, RouteProvider } from './route'
 import { type PathStore, PathStoreProvider, buildPathStore } from './pathSystem'
 
-const __rootDir = `${process.cwd()}`
-const __docDir = `${__rootDir}/docs`
+const __rootDir = `${process.cwd()}/docs`
 
 const _writeToFile = (route: Pick<FileRoute, 'key' | 'element'>, routeStore: PathStore) => {
   const path = routeStore[route.key]
 
   fs.writeFileSync(
-    [__docDir, ...path].join('/'),
+    [__rootDir, ...path].join('/'),
     `<!doctype html>
     ${renderToStaticMarkup(
       <PathStoreProvider value={routeStore}>
@@ -23,7 +22,7 @@ const _writeToFile = (route: Pick<FileRoute, 'key' | 'element'>, routeStore: Pat
 const _copyAsset = ({ key, src }: Pick<AssetRoute, 'key' | 'src'>, routeStore: PathStore) => {
   const path = routeStore[key]
 
-  fs.copyFileSync(src, [__docDir, ...path].join('/'))
+  fs.copyFileSync(src, [__rootDir, ...path].join('/'))
 }
 
 const _build = (route: Pick<DirRoute, 'key' | 'children' | 'index'>, routeStore: PathStore) => {
@@ -33,7 +32,7 @@ const _build = (route: Pick<DirRoute, 'key' | 'children' | 'index'>, routeStore:
       child satisfies DirRoute
 
       const path = routeStore[child.key]
-      const realDirPath = [__docDir, ...path].join('/')
+      const realDirPath = [__rootDir, ...path].join('/')
       if (!fs.existsSync(realDirPath)) fs.mkdirSync(realDirPath, { recursive: true })
 
       _build(child, routeStore)
@@ -52,8 +51,8 @@ const _build = (route: Pick<DirRoute, 'key' | 'children' | 'index'>, routeStore:
 export const build = (rootRoute: Pick<DirRoute, 'key' | 'children' | 'index'>) => {
   const routeStore = buildPathStore(rootRoute)
 
-  if (fs.existsSync(__docDir)) fs.rmdirSync(__docDir, { recursive: true })
-  fs.mkdirSync(__docDir, { recursive: true })
+  if (fs.existsSync(__rootDir)) fs.rmdirSync(__rootDir, { recursive: true })
+  fs.mkdirSync(__rootDir, { recursive: true })
 
   _build(rootRoute, routeStore)
 }
