@@ -27,6 +27,7 @@ export const MovePage: React.FC<Move> = ({ id, name, type, effectId }) => {
         <a href="#in-game">ゲーム内での表記</a>
       </h3>
       <table>
+        <caption>わざの性能</caption>
         <tr>
           <th>タイプ</th>
           <td>
@@ -56,6 +57,7 @@ export const MovePage: React.FC<Move> = ({ id, name, type, effectId }) => {
         <a href="#effect">効果</a>
       </h3>
       <table>
+        <caption>効果の詳細</caption>
         <tr>
           <th>効果ID</th>
           <td>
@@ -96,6 +98,7 @@ export const MovePage: React.FC<Move> = ({ id, name, type, effectId }) => {
 const MovesTable: React.FC<{ moves: readonly Move[] }> = ({ moves }) => {
   return (
     <table>
+      <caption>わざ一覧</caption>
       <thead>
         <tr>
           <th>わざ名</th>

@@ -23,6 +23,7 @@ export const EffectPage: React.FC<MoveEffect> = ({ id, appeal, jamming, descript
         <a href="#in-game">ゲーム内での表記</a>
       </h3>
       <table>
+        <caption>わざの性能</caption>
         <tr>
           <th>アピール</th>
           <td>
@@ -63,6 +64,7 @@ export const EffectPage: React.FC<MoveEffect> = ({ id, appeal, jamming, descript
 const MovesTable: React.FC<{ moves: readonly Move[] }> = ({ moves }) => {
   return (
     <table>
+      <caption>わざ一覧</caption>
       <thead>
         <tr>
           <th>わざ名</th>
