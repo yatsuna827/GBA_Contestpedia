@@ -12,11 +12,12 @@ const _writeToFile = (route: Pick<FileRoute, 'key' | 'element'>, routeStore: Pat
 
   fs.writeFileSync(
     [__docDir, ...path].join('/'),
-    renderToStaticMarkup(
+    `<!doctype html>
+    ${renderToStaticMarkup(
       <PathStoreProvider value={routeStore}>
         <RouteProvider value={route}>{route.element}</RouteProvider>
       </PathStoreProvider>
-    )
+    )}`
   )
 }
 const _copyAsset = ({ key, src }: Pick<AssetRoute, 'key' | 'src'>, routeStore: PathStore) => {
