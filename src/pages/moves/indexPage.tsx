@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { useInnerLink, InnerLink } from '@engine/link'
+import { useLink, InnerLink } from '@engine/link'
 import { AppealType, toEn } from '@data/appealType'
 import { type Move, moves } from '@data/moves'
 
@@ -9,7 +9,7 @@ import { movesRoute } from '../moves'
 import { globalCss } from '../root'
 
 export const MovesIndexPage: React.FC = () => {
-  const cssSrc = useInnerLink(globalCss)
+  const cssSrc = useLink(globalCss)
   return (
     <html>
       <head>

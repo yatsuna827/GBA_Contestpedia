@@ -1,5 +1,5 @@
 import { expect, test, describe } from 'bun:test'
-import { getBranchPoint, getRelativePath } from '../../engine/link/path'
+import { getBranchPoint, resolveRelativePath } from './resolveRelativePath'
 
 describe('getBranchPoint', () => {
   test('途中まで同じ場合', () => {
@@ -64,12 +64,12 @@ describe('getBranchPoint', () => {
   })
 })
 
-describe('getRelativePath', () => {
+describe('resolveRelativePath', () => {
   test('共通のディレクトリから派生して深さが同じ', () => {
     const path1 = ['apple', 'banana', 'cherry', 'doggo', 'eggplant', 'fig.html']
     const path2 = ['apple', 'banana', 'cherry', 'date', 'earth', 'fish.html']
 
-    const result = getRelativePath(path1, path2)
+    const result = resolveRelativePath(path1, path2)
     expect(result).toBe('../../date/earth/fish.html')
   })
 
@@ -77,7 +77,7 @@ describe('getRelativePath', () => {
     const path1 = ['apple', 'banana', 'cherry', 'doggo.html']
     const path2 = ['apple', 'banana', 'code', 'date', 'earth', 'fish.html']
 
-    const result = getRelativePath(path1, path2)
+    const result = resolveRelativePath(path1, path2)
     expect(result).toBe('../code/date/earth/fish.html')
   })
 
@@ -85,7 +85,7 @@ describe('getRelativePath', () => {
     const path1 = ['apple', 'banana', 'cherry', 'dog.html']
     const path2 = ['apple', 'banana', 'cherry', 'cat.html']
 
-    const result = getRelativePath(path1, path2)
+    const result = resolveRelativePath(path1, path2)
     expect(result).toBe('./cat.html')
   })
 
@@ -93,7 +93,7 @@ describe('getRelativePath', () => {
     const path1 = ['apple', 'banana', 'cherry', 'dog.html']
     const path2 = ['apple', 'banana', 'cherry', 'foo', 'bar', 'cat.html']
 
-    const result = getRelativePath(path1, path2)
+    const result = resolveRelativePath(path1, path2)
     expect(result).toBe('./foo/bar/cat.html')
   })
 
@@ -101,7 +101,7 @@ describe('getRelativePath', () => {
     const path1 = ['apple', 'banana', 'cherry', 'doggo.html']
     const path2 = ['apple', 'banana', 'cherry.html']
 
-    const result = getRelativePath(path1, path2)
+    const result = resolveRelativePath(path1, path2)
     expect(result).toBe('../cherry.html')
   })
 
@@ -109,7 +109,7 @@ describe('getRelativePath', () => {
     const path1 = ['apple', 'banana', 'cherry', 'dog.html']
     const path2 = ['art', 'bomb', 'clock.html']
 
-    const result = getRelativePath(path1, path2)
+    const result = resolveRelativePath(path1, path2)
     expect(result).toBe('../../../art/bomb/clock.html')
   })
 
@@ -117,7 +117,7 @@ describe('getRelativePath', () => {
     const path1 = ['apple', 'banana', 'cherry', 'dog.html']
     const path2 = [] as string[]
 
-    const result = getRelativePath(path1, path2)
+    const result = resolveRelativePath(path1, path2)
     expect(result).toBe('../../..')
   })
 
@@ -125,7 +125,7 @@ describe('getRelativePath', () => {
     const path1 = [] as string[]
     const path2 = ['apple', 'banana', 'cherry', 'dog.html']
 
-    const result = getRelativePath(path1, path2)
+    const result = resolveRelativePath(path1, path2)
     expect(result).toBe('./apple/banana/cherry/dog.html')
   })
 })

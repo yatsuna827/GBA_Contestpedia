@@ -1,12 +1,12 @@
 import { assetRoute, createRoute } from '@engine/route'
-import { useInnerLink, InnerLink } from '@engine/link'
+import { useLink, InnerLink } from '@engine/link'
 
 import { movesRoute } from './moves'
 import { effectsRoute } from './effects'
 import { specsRoute } from './spec'
 
 const TopPage: React.FC = () => {
-  const cssSrc = useInnerLink(globalCss)
+  const cssSrc = useLink(globalCss)
   return (
     <html>
       <head>

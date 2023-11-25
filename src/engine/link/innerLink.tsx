@@ -1,5 +1,5 @@
-import { FileRoute } from '../route'
-import { useInnerLink } from './useInnerLink'
+import type { FileRoute } from '../route'
+import { useLink } from './useLink'
 
 type InnerLinkProps = {
   to: Pick<FileRoute, 'key'>
@@ -7,7 +7,7 @@ type InnerLinkProps = {
   children?: React.ReactNode
 } & Omit<JSX.IntrinsicElements['a'], 'href'>
 export const InnerLink: React.FC<InnerLinkProps> = ({ to, fragment, children, ...options }) => {
-  const relativePath = useInnerLink(to)
+  const relativePath = useLink(to)
 
   return (
     <a {...options} href={fragment != null ? `${relativePath}#${fragment}` : relativePath}>

@@ -1,8 +1,8 @@
-import { useInnerLink } from '@src/engine/link'
+import { useLink } from '@src/engine/link'
 import { globalCss } from '../root'
 
 export const SpecPage: React.FC = () => {
-  const cssSrc = useInnerLink(globalCss)
+  const cssSrc = useLink(globalCss)
   return (
     <html>
       <head>

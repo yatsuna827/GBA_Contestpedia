@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { useInnerLink, InnerLink } from '@engine/link'
+import { useLink, InnerLink } from '@engine/link'
 import { getEffect, getMoves } from '@data/effects'
 import { type Move, comboFrom, comboTo } from '@data/moves'
 import { AppealTypeSpan } from '@components/appealTypeSpan'
@@ -11,7 +11,7 @@ import { effectsRoute } from '../effects'
 import { movesRoute } from '../moves'
 
 export const MovePage: React.FC<Move> = ({ id, name, type, effectId }) => {
-  const cssSrc = useInnerLink(globalCss)
+  const cssSrc = useLink(globalCss)
 
   const { appeal, jamming, inGameDescription, description } = getEffect(effectId)
   const sameEffectMoves = getMoves(effectId).filter((other) => other.id !== id)

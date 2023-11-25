@@ -1,31 +1,31 @@
 import fs from 'fs'
 import { renderToStaticMarkup } from 'react-dom/server'
 
-import { type DirRoute, type FileRoute, type RouteStore, buildRouteStore, AssetRoute } from './route'
-import { PathInjector, GlobalRouteContext } from './link'
+import { type DirRoute, type FileRoute, type AssetRoute, RouteProvider } from './route'
+import { type PathStore, PathStoreProvider, buildPathStore } from './pathSystem'
 
 const __rootDir = `${process.cwd()}`
 const __docDir = `${__rootDir}/docs`
 
-const _writeToFile = (route: Pick<FileRoute, 'key' | 'element'>, routeStore: RouteStore) => {
+const _writeToFile = (route: Pick<FileRoute, 'key' | 'element'>, routeStore: PathStore) => {
   const path = routeStore[route.key]
 
   fs.writeFileSync(
     [__docDir, ...path].join('/'),
     renderToStaticMarkup(
-      <GlobalRouteContext.Provider value={routeStore}>
-        <PathInjector route={route}>{route.element}</PathInjector>
-      </GlobalRouteContext.Provider>
+      <PathStoreProvider value={routeStore}>
+        <RouteProvider value={route}>{route.element}</RouteProvider>
+      </PathStoreProvider>
     )
   )
 }
-const _copyAsset = ({ key, src }: Pick<AssetRoute, 'key' | 'src'>, routeStore: RouteStore) => {
+const _copyAsset = ({ key, src }: Pick<AssetRoute, 'key' | 'src'>, routeStore: PathStore) => {
   const path = routeStore[key]
 
   fs.copyFileSync(src, [__docDir, ...path].join('/'))
 }
 
-const _build = (route: Pick<DirRoute, 'key' | 'children' | 'index'>, routeStore: RouteStore) => {
+const _build = (route: Pick<DirRoute, 'key' | 'children' | 'index'>, routeStore: PathStore) => {
   if (route.index) _writeToFile(route.index, routeStore)
   for (const child of Object.values(route.children)) {
     if (child.tag === 'DirRoute') {
@@ -49,7 +49,7 @@ const _build = (route: Pick<DirRoute, 'key' | 'children' | 'index'>, routeStore:
 }
 
 export const build = (rootRoute: Pick<DirRoute, 'key' | 'children' | 'index'>) => {
-  const routeStore = buildRouteStore(rootRoute)
+  const routeStore = buildPathStore(rootRoute)
 
   if (fs.existsSync(__docDir)) fs.rmdirSync(__docDir, { recursive: true })
   fs.mkdirSync(__docDir, { recursive: true })

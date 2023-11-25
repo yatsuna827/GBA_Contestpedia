@@ -1,13 +1,13 @@
 import React from 'react'
 
-import { useInnerLink, InnerLink } from '@engine/link'
+import { useLink, InnerLink } from '@engine/link'
 import { type MoveEffect, effects } from '@data/effects'
 
 import { globalCss } from '../root'
 import { effectsRoute } from '.'
 
 export const EffectsIndexPage: React.FC = () => {
-  const cssSrc = useInnerLink(globalCss)
+  const cssSrc = useLink(globalCss)
   return (
     <html>
       <head>
