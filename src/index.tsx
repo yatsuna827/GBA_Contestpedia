@@ -49,11 +49,11 @@ app.get('/', (c) => {
   )
 })
 
-app.get('/spec', (c) => {
+app.get('/spec/', (c) => {
   return c.render(<SpecPage />)
 })
 
-app.get('/moves', (c) => {
+app.get('/moves/', (c) => {
   return c.render(<MovesPage />)
 })
 app.get(
@@ -71,7 +71,7 @@ app.get(
   }
 )
 
-app.get('/effects', (c) => {
+app.get('/effects/', (c) => {
   return c.render(<EffectsPage />)
 })
 app.get(

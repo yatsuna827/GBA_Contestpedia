@@ -57,7 +57,7 @@ const Page: FC<Move> = ({ id, name, type, effectId }) => {
         <tr>
           <th>効果ID</th>
           <td>
-            <a href={`/effects/${effectId}`}>{effectId}</a>
+            <a href={`/effects/${effectId}.html`}>{effectId}</a>
           </td>
         </tr>
         <tr>
@@ -113,7 +113,7 @@ const Row: FC<Move> = ({ id, name, type }) => {
   return (
     <tr>
       <td>
-        <a href={`/moves/${id.toString().padStart(3, '0')}`}>{name}</a>
+        <a href={`/moves/${id.toString().padStart(3, '0')}.html`}>{name}</a>
       </td>
       <td>
         <AppealTypeSpan appealType={type} />
