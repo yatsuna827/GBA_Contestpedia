@@ -7,7 +7,7 @@ export const AppealTypeSpan: FC<{ appealType: AppealType }> = ({ appealType }) =
 
   return (
     <span className={typeEn}>
-      <a href={`/moves#${typeEn}`}>{typeJp}</a>
+      <a href={`/GBA_Contestpedia/moves#${typeEn}`}>{typeJp}</a>
     </span>
   )
 }

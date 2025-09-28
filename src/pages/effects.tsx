@@ -35,7 +35,7 @@ const Row: FC<MoveEffect> = ({ id, description }) => {
   return (
     <tr>
       <td>
-        <a href={`/effects/${id}.html`}>{id}</a>
+        <a href={`/GBA_Contestpedia/effects/${id}`}>{id}</a>
       </td>
       <td>{description}</td>
     </tr>

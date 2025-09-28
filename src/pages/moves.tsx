@@ -57,10 +57,10 @@ const Row: FC<Move> = ({ id, name, effectId }: Move) => {
   return (
     <tr>
       <td>
-        <a href={`/moves/${id.toString().padStart(3, '0')}.html`}>{name}</a>
+        <a href={`/GBA_Contestpedia/moves/${id.toString().padStart(3, '0')}`}>{name}</a>
       </td>
       <td>
-        <a href={`/effects/${effectId}.html`}>{effectId}</a>
+        <a href={`/GBA_Contestpedia/effects/${effectId}`}>{effectId}</a>
       </td>
     </tr>
   )

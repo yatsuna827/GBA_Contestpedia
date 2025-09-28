@@ -19,7 +19,7 @@ app.use('*', async (c, next) => {
       <html lang="ja">
         <head>
           <meta charSet="UTF-8" />
-          <link rel="stylesheet" href="/style.css" />
+          <link rel="stylesheet" href="/GBA_Contestpedia/style.css" />
         </head>
 
         <body>{content}</body>
@@ -39,10 +39,10 @@ app.get('/', (c) => {
       <h2>目次</h2>
       <ul>
         <li>
-          <a href="/moves">わざデータ</a>
+          <a href="/GBA_Contestpedia/moves">わざデータ</a>
         </li>
         <li>
-          <a href="/spec">コンテストの仕様</a>
+          <a href="/GBA_Contestpedia/spec">コンテストの仕様</a>
         </li>
       </ul>
     </>
