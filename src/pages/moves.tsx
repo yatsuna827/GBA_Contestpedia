@@ -1,6 +1,7 @@
 import type { FC } from 'hono/jsx'
-import { AppealType, toEn } from '../data/appealType'
+import { type AppealType, toEn } from '../data/appealType'
 import { type Move, moves } from '../data/moves'
+import { Link } from '../components/Link'
 
 const Page: FC = () => {
   return (
@@ -57,10 +58,10 @@ const Row: FC<Move> = ({ id, name, effectId }: Move) => {
   return (
     <tr>
       <td>
-        <a href={`/GBA_Contestpedia/moves/${id.toString().padStart(3, '0')}`}>{name}</a>
+        <Link href={`/moves/${id.toString().padStart(3, '0')}`}>{name}</Link>
       </td>
       <td>
-        <a href={`/GBA_Contestpedia/effects/${effectId}`}>{effectId}</a>
+        <Link href={`/effects/${effectId}`}>{effectId}</Link>
       </td>
     </tr>
   )

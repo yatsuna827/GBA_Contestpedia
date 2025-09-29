@@ -10,6 +10,8 @@ import { Page as SpecPage } from './pages/spec'
 
 import { moves } from './data/moves'
 import { effects } from './data/effects'
+import { Link } from './components/Link'
+import { url } from './utils/url'
 
 const app = new Hono()
 
@@ -19,7 +21,7 @@ app.use('*', async (c, next) => {
       <html lang="ja">
         <head>
           <meta charSet="UTF-8" />
-          <link rel="stylesheet" href="/GBA_Contestpedia/style.css" />
+          <link rel="stylesheet" href={url('/style.css')} />
         </head>
 
         <body>{content}</body>
@@ -39,10 +41,10 @@ app.get('/', (c) => {
       <h2>目次</h2>
       <ul>
         <li>
-          <a href="/GBA_Contestpedia/moves">わざデータ</a>
+          <Link href="/moves">わざデータ</Link>
         </li>
         <li>
-          <a href="/GBA_Contestpedia/spec">コンテストの仕様</a>
+          <Link href="/spec">コンテストの仕様</Link>
         </li>
       </ul>
     </>

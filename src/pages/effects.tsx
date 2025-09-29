@@ -1,5 +1,6 @@
 import type { FC } from 'hono/jsx'
 import { type MoveEffect, effects } from '../data/effects'
+import { Link } from '../components/Link'
 
 const Page: FC = () => {
   return (
@@ -35,7 +36,7 @@ const Row: FC<MoveEffect> = ({ id, description }) => {
   return (
     <tr>
       <td>
-        <a href={`/GBA_Contestpedia/effects/${id}`}>{id}</a>
+        <Link href={`/effects/${id}`}>{id}</Link>
       </td>
       <td>{description}</td>
     </tr>

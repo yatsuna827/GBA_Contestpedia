@@ -1,5 +1,6 @@
 import type { FC } from 'hono/jsx'
-import { AppealType, toEn } from '../data/appealType'
+import { type AppealType, toEn } from '../data/appealType'
+import { Link } from './Link'
 
 export const AppealTypeSpan: FC<{ appealType: AppealType }> = ({ appealType }) => {
   const typeJp = appealType
@@ -7,7 +8,7 @@ export const AppealTypeSpan: FC<{ appealType: AppealType }> = ({ appealType }) =
 
   return (
     <span className={typeEn}>
-      <a href={`/GBA_Contestpedia/moves#${typeEn}`}>{typeJp}</a>
+      <Link href={`/moves#${typeEn}`}>{typeJp}</Link>
     </span>
   )
 }

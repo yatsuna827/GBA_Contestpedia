@@ -5,6 +5,7 @@ import { type Move, comboFrom, comboTo } from '../data/moves'
 
 import { AppealTypeSpan } from '../components/AppealTypeSpan'
 import { Appeal, Jamming } from '../components/Points'
+import { Link } from '../components/Link'
 
 const Page: FC<Move> = ({ id, name, type, effectId }) => {
   const { appeal, jamming, inGameDescription, description } = getEffect(effectId)
@@ -57,7 +58,7 @@ const Page: FC<Move> = ({ id, name, type, effectId }) => {
         <tr>
           <th>効果ID</th>
           <td>
-            <a href={`/GBA_Contestpedia/effects/${effectId}`}>{effectId}</a>
+            <Link href={`/effects/${effectId}`}>{effectId}</Link>
           </td>
         </tr>
         <tr>
@@ -113,7 +114,7 @@ const Row: FC<Move> = ({ id, name, type }) => {
   return (
     <tr>
       <td>
-        <a href={`/GBA_Contestpedia/moves/${id.toString().padStart(3, '0')}`}>{name}</a>
+        <Link href={`/moves/${id.toString().padStart(3, '0')}`}>{name}</Link>
       </td>
       <td>
         <AppealTypeSpan appealType={type} />

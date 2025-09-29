@@ -5,6 +5,7 @@ import { type Move } from '../data/moves'
 
 import { Appeal, Jamming } from '../components/Points'
 import { AppealTypeSpan } from '../components/AppealTypeSpan'
+import { Link } from '../components/Link'
 
 const Page: FC<MoveEffect> = ({ id, appeal, jamming, description, inGameDescription }) => {
   return (
@@ -81,7 +82,7 @@ const Row: FC<Move> = ({ id, name, type }) => {
   return (
     <tr>
       <td>
-        <a href={`/GBA_Contestpedia/moves/${id.toString().padStart(3, '0')}`}>{name}</a>
+        <Link href={`/moves/${id.toString().padStart(3, '0')}`}>{name}</Link>
       </td>
       <td>
         <AppealTypeSpan appealType={type} />
