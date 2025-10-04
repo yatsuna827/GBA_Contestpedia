@@ -3,7 +3,7 @@
   "type": "module",
   "scripts": {
     "preview": "bunx --bun vite preview",
-    "build": "bunx --bun vite build && prettier ./docs/**/*.{html,css} --write --log-level=warn",
+    "build": "bunx --bun vite build",
     "format:docs": "prettier ./docs/ --write --log-level=warn",
     "format:src": "prettier ./src/ --write --log-level=warn"
   },
