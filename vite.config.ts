@@ -4,7 +4,6 @@ import ssg from '@hono/vite-ssg'
 
 export default defineConfig({
   base: '/GBA_Contestpedia/',
-  build: { outDir: './dist' },
   worker: { format: 'es' },
   plugins: [
     ssg(),
