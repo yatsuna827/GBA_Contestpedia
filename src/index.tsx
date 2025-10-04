@@ -1,6 +1,6 @@
 import { Hono } from 'hono'
 import { ssgParams } from 'hono/ssg'
-import { Style } from 'hono/css'
+import { html } from 'hono/html'
 
 import { Page as MovesPage } from './pages/moves'
 import { Page as MovePage } from './pages/moves.[id]'
@@ -12,7 +12,6 @@ import { moves } from './data/moves'
 import { effects } from './data/effects'
 import { Link } from './components/Link'
 import { url } from './utils/url'
-import { html } from 'hono/html'
 import { NotFoundError } from './error'
 
 export const app = new Hono()

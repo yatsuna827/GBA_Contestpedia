@@ -4,8 +4,7 @@
   "scripts": {
     "preview": "bunx --bun vite preview",
     "build": "bunx --bun vite build",
-    "format:docs": "prettier ./docs/ --write --log-level=warn",
-    "format:src": "prettier ./src/ --write --log-level=warn"
+    "format": "prettier ./src/ --write --log-level=warn"
   },
   "dependencies": {
     "hono": "^4.9.9"
