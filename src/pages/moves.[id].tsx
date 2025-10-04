@@ -15,7 +15,7 @@ const Page: FC<Move> = ({ id, name, type, effectId }) => {
     <>
       <title>{`GBAコンテスト辞典 | わざデータ / ${name}`}</title>
 
-      <h1>わざ効果データ / {name}</h1>
+      <h1>わざデータ / {name}</h1>
 
       <h2>
         <span id="details"></span>
