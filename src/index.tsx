@@ -12,8 +12,10 @@ import { moves } from './data/moves'
 import { effects } from './data/effects'
 import { Link } from './components/Link'
 import { url } from './utils/url'
+import { html } from 'hono/html'
+import { NotFoundError } from './error'
 
-const app = new Hono()
+export const app = new Hono()
 
 app.use('*', async (c, next) => {
   c.setRenderer((content) => {
@@ -47,15 +49,23 @@ app.get('/', (c) => {
           <Link href="/spec">コンテストの仕様</Link>
         </li>
       </ul>
+
+      <div>
+        {__SW__ ? (
+          <Link href="/uninstall">ローカルモード無効化</Link>
+        ) : (
+          <Link href="/install">ローカルモード有効化</Link>
+        )}
+      </div>
     </>
   )
 })
 
-app.get('/spec/', (c) => {
+app.get('/spec', (c) => {
   return c.render(<SpecPage />)
 })
 
-app.get('/moves/', (c) => {
+app.get('/moves', (c) => {
   return c.render(<MovesPage />)
 })
 app.get(
@@ -67,13 +77,13 @@ app.get(
     const param = c.req.param()
 
     const move = moves.find(({ id }) => id == Number(param.id))
-    if (move == null) throw new Error()
+    if (move == null) throw new NotFoundError(`Invalid id: ${param.id}`)
 
     return c.render(<MovePage {...move} />)
   }
 )
 
-app.get('/effects/', (c) => {
+app.get('/effects', (c) => {
   return c.render(<EffectsPage />)
 })
 app.get(
@@ -85,10 +95,58 @@ app.get(
     const param = c.req.param()
 
     const eff = effects.find(({ id }) => id == param.id)
-    if (eff == null) throw new Error()
+    if (eff == null) throw new NotFoundError(`Invalid id: ${param.id}`)
 
     return c.render(<EffectPage {...eff} />)
   }
 )
+
+app.get('/install', (c) => {
+  return c.render(
+    <div>
+      {!__SW__ &&
+        html`
+          <script>
+            if ('serviceWorker' in navigator) {
+              navigator.serviceWorker
+                .register('${url('/sw.js')}', {
+                  type: 'classic',
+                  updateViaCache: 'none',
+                  scope: '/GBA_Contestpedia/',
+                })
+                .then(
+                  (registration) => {
+                    console.log('Service Worker registered successfully:', registration.scope)
+                    registration.update()
+                  },
+                  (error) => {
+                    console.log('Service Worker registration failed:', error)
+                  }
+                )
+            }
+          </script>
+        `}
+      <Link href="/">Back</Link>
+    </div>
+  )
+})
+app.get('/uninstall', (c) => {
+  return c.render(
+    <div>
+      {html`
+        <script>
+          if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.getRegistrations().then(function (registrations) {
+              for (const registration of registrations) {
+                registration.unregister()
+              }
+            })
+          }
+        </script>
+      `}
+      <Link href="/">Back</Link>
+    </div>
+  )
+})
 
 export default app

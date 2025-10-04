@@ -1,0 +1,20 @@
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="/GBA_Contestpedia/style.css" />
+  </head>
+  <body>
+    <div>
+      <script>
+        if ('serviceWorker' in navigator) {
+          navigator.serviceWorker.getRegistrations().then(function (registrations) {
+            for (const registration of registrations) {
+              registration.unregister()
+            }
+          })
+        }
+      </script>
+      <a href="/GBA_Contestpedia/">Back</a>
+    </div>
+  </body>
+</html>

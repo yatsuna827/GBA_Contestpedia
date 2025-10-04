@@ -3,7 +3,7 @@
   "type": "module",
   "scripts": {
     "preview": "bunx --bun vite preview",
-    "build": "bunx --bun vite build && prettier ./docs/ --write --log-level=warn",
+    "build": "bunx --bun vite build && prettier ./docs/**/*.{html,css} --write --log-level=warn",
     "format:docs": "prettier ./docs/ --write --log-level=warn",
     "format:src": "prettier ./src/ --write --log-level=warn"
   },
@@ -15,7 +15,8 @@
     "bun-types": "^1.2.23",
     "prettier": "^3.6.2",
     "typescript": "^5.9.2",
-    "vite": "^7.1.7"
+    "vite": "^7.1.7",
+    "vite-plugin-pwa": "^1.0.3"
   },
   "prettier": {
     "semi": false,
